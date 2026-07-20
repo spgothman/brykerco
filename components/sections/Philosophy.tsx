@@ -1,0 +1,67 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { colors } from "@/lib/tokens"
+import {
+  getAboutCardProps,
+  getAboutHeadingProps,
+} from "@/lib/scrollAnimations"
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
+
+const principles = [
+  {
+    title: "We invest alongside you.",
+    description:
+      "When the deal is right, we put our own capital in alongside yours. That changes the dynamic. We are not a vendor. We are a shareholder, aligned on the same outcome from day one.",
+  },
+  {
+    title: "We work, we do not advise.",
+    description:
+      "We do not show up to observe. We show up to build. Our team sits alongside yours, builds the systems, and trains the people. When we leave, the machine runs without us.",
+  },
+  {
+    title: "We build what lasts.",
+    description:
+      "Every engagement is designed to leave the company stronger than we found it. The infrastructure, processes, and people we put in place are built to outlast our involvement. We build companies, not consulting engagements.",
+  },
+] as const
+
+export default function Philosophy() {
+  const reducedMotion = usePrefersReducedMotion()
+
+  return (
+    <section className="bg-navy py-[120px]">
+      <div className="mx-auto max-w-7xl px-6 md:px-20">
+        <motion.h2
+          className="font-serif text-[40px] font-semibold leading-tight text-white md:text-[48px]"
+          {...getAboutHeadingProps(reducedMotion)}
+        >
+          How we work.
+        </motion.h2>
+        <div className="mt-16 grid gap-8 md:grid-cols-3">
+          {principles.map((principle, index) => (
+            <motion.div
+              key={principle.title}
+              className="rounded border px-6 py-8"
+              style={{
+                backgroundColor: colors.navyMid,
+                borderColor: colors.slate,
+              }}
+              {...getAboutCardProps(reducedMotion, index)}
+            >
+              <h3 className="font-sans text-lg font-semibold text-white">
+                {principle.title}
+              </h3>
+              <p
+                className="mt-4 font-sans text-sm leading-relaxed"
+                style={{ color: colors.white75 }}
+              >
+                {principle.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

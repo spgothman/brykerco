@@ -1,0 +1,22 @@
+import Footer from "@/components/layout/Footer"
+import Navigation from "@/components/layout/Navigation"
+
+export default function SiteLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-navy"
+      >
+        Skip to content
+      </a>
+      <Navigation />
+      <div id="main-content">{children}</div>
+      <Footer />
+    </>
+  )
+}
