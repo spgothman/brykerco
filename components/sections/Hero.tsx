@@ -68,7 +68,7 @@ export default function Hero() {
           </h1>
 
           <p
-            className="mt-6 max-w-[600px] font-sans text-sm leading-[1.75] md:text-lg"
+            className="mt-6 hidden max-w-[600px] font-sans text-sm leading-[1.75] md:block md:text-lg"
             style={{ color: colors.white75 }}
           >
             Bryker & Co. embeds experienced operators inside your organization,

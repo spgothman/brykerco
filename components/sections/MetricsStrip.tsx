@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Fragment } from "react"
+import { Fragment, useSyncExternalStore } from "react"
 import CountUp from "@/components/ui/CountUp"
 import { getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
@@ -35,6 +35,28 @@ const metrics = [
     label: "SECTOR FOCUS",
   },
 ]
+
+function subscribeMdUp(onStoreChange: () => void) {
+  const mediaQuery = window.matchMedia("(min-width: 768px)")
+  mediaQuery.addEventListener("change", onStoreChange)
+  return () => mediaQuery.removeEventListener("change", onStoreChange)
+}
+
+function getMdUpSnapshot() {
+  return window.matchMedia("(min-width: 768px)").matches
+}
+
+function getMdUpServerSnapshot() {
+  return false
+}
+
+function useIsMdUp() {
+  return useSyncExternalStore(
+    subscribeMdUp,
+    getMdUpSnapshot,
+    getMdUpServerSnapshot,
+  )
+}
 
 function PracticeAreasValue() {
   return (
@@ -81,6 +103,8 @@ function MetricValue({
 
 export default function MetricsStrip() {
   const reducedMotion = usePrefersReducedMotion()
+  const isMdUp = useIsMdUp()
+  const skipFadeIn = reducedMotion || !isMdUp
 
   return (
     <section className="bg-navy py-12 md:py-20" aria-label="Company highlights">
@@ -90,7 +114,7 @@ export default function MetricsStrip() {
             <Fragment key={metric.label}>
               <motion.div
                 className="flex w-full max-w-xs flex-1 flex-col items-center px-4 md:min-w-[200px] md:max-w-none md:px-12"
-                {...getFadeUpProps(reducedMotion, index * 0.1)}
+                {...getFadeUpProps(skipFadeIn, index * 0.1)}
               >
                 <div className="flex w-full flex-1 items-center justify-center">
                   <MetricValue metric={metric} />
