@@ -7,10 +7,10 @@ import { getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 
 const VALUE_CLASS =
-  "text-center font-serif text-[72px] font-bold leading-none text-white"
+  "text-center font-serif text-[48px] font-bold leading-none text-white md:text-[72px]"
 
 const PRACTICE_VALUE_CLASS =
-  "text-center text-[28px] font-bold leading-tight text-white md:text-[32px]"
+  "text-center text-[24px] font-bold leading-tight text-white md:text-[32px]"
 
 const metrics = [
   {
@@ -83,13 +83,13 @@ export default function MetricsStrip() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-navy py-20" aria-label="Company highlights">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col items-center justify-center gap-12 md:flex-row md:items-stretch md:justify-center md:gap-0">
+    <section className="bg-navy py-12 md:py-20" aria-label="Company highlights">
+      <div className="mx-auto max-w-7xl px-4 md:px-6">
+        <div className="flex flex-col items-center justify-center gap-8 md:flex-row md:items-stretch md:justify-center md:gap-0">
           {metrics.map((metric, index) => (
             <Fragment key={metric.label}>
               <motion.div
-                className="flex min-w-[160px] flex-1 flex-col items-center px-8 md:min-w-[200px] md:px-12"
+                className="flex w-full max-w-xs flex-1 flex-col items-center px-4 md:min-w-[200px] md:max-w-none md:px-12"
                 {...getFadeUpProps(reducedMotion, index * 0.1)}
               >
                 <div className="flex w-full flex-1 items-center justify-center">

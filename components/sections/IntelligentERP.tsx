@@ -17,8 +17,8 @@ export default function IntelligentERP() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-textPrimary py-[120px]">
-      <div className="mx-auto max-w-7xl px-6 md:px-20">
+    <section className="bg-textPrimary py-16 md:py-[120px]">
+      <div className="mx-auto max-w-7xl px-4 md:px-20">
         <header className="max-w-3xl">
           <motion.p
             className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-blueGray"
@@ -27,7 +27,7 @@ export default function IntelligentERP() {
             TECHNOLOGY
           </motion.p>
           <motion.h2
-            className="mt-4 font-serif text-[40px] font-semibold leading-tight text-white md:text-[48px]"
+            className="mt-4 font-serif text-3xl font-semibold leading-tight text-white md:text-[48px]"
             {...getServiceHeadlineProps(reducedMotion)}
           >
             We build operating systems for consumer brands.
@@ -54,7 +54,7 @@ export default function IntelligentERP() {
           </motion.p>
         </header>
 
-        <div className="mt-20">
+        <div className="mt-12 md:mt-20">
           <ERPArchitectureDiagram
             animated
             layerBaseDelay={techDiagramBaseDelay}
@@ -62,7 +62,7 @@ export default function IntelligentERP() {
         </div>
 
         <motion.div
-          className="mt-16 text-center"
+          className="mt-10 text-center md:mt-16"
           {...getFadeInProps(reducedMotion, techDiagramBaseDelay + 0.5)}
         >
           <Link

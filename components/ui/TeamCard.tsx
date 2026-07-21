@@ -38,7 +38,7 @@ export default function TeamCard({
         />
       </motion.div>
       <motion.div
-        className="flex flex-1 flex-col px-6 py-6"
+        className="flex flex-1 flex-col px-5 py-5 md:px-6 md:py-6"
         {...getAboutTeamTextProps(reducedMotion, index)}
       >
         <h3 className="font-serif text-xl font-semibold text-navy">{name}</h3>

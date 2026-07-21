@@ -232,8 +232,8 @@ export default function CaseStudyTimeline() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-offWhite py-[120px]">
-      <div className="mx-auto max-w-7xl px-6 md:px-20">
+    <section className="bg-offWhite py-16 md:py-[120px]">
+      <div className="mx-auto max-w-7xl px-4 md:px-20">
         <header className="max-w-3xl">
           <motion.p
             className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-slate"
@@ -242,7 +242,7 @@ export default function CaseStudyTimeline() {
             CASE STUDY
           </motion.p>
           <motion.h2
-            className="mt-4 whitespace-nowrap font-serif text-[48px] font-semibold leading-tight text-navy"
+            className="mt-4 font-serif text-3xl font-semibold leading-tight text-navy md:whitespace-nowrap md:text-[48px]"
             {...getFadeUpProps(reducedMotion)}
           >
             From growth stage to a successful exit.
@@ -288,7 +288,7 @@ export default function CaseStudyTimeline() {
           </div>
         </div>
 
-        <div className="relative mt-16 md:hidden">
+        <div className="relative mt-12 md:hidden">
           {reducedMotion ? (
             <div
               className="absolute bottom-0 left-[5px] top-0 w-px"
@@ -307,7 +307,7 @@ export default function CaseStudyTimeline() {
             />
           )}
 
-          <div className="flex flex-col gap-12 pl-8">
+          <div className="flex flex-col gap-8 pl-8 sm:gap-12">
             {steps.map((step, index) => (
               <MobileTimelineStep
                 key={`${step.date}-${step.title}`}

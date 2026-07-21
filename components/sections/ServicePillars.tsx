@@ -68,7 +68,7 @@ function BulletList({
   reducedMotion: boolean
 }) {
   return (
-    <ul className="mt-8 space-y-3">
+    <ul className="mt-6 space-y-2.5 md:mt-8 md:space-y-3">
       {items.map((item, index) => (
         <motion.li
           key={item}
@@ -80,7 +80,7 @@ function BulletList({
             style={{ backgroundColor: colors.accent }}
             aria-hidden
           />
-          {item}
+          <span className="min-w-0">{item}</span>
         </motion.li>
       ))}
     </ul>
@@ -105,8 +105,11 @@ export default function ServicePillars({ show }: ServicePillarsProps = {}) {
               : "bg-navy"
 
         return (
-          <section key={pillar.eyebrow} className={`${bgClass} py-[120px]`}>
-            <div className="mx-auto max-w-7xl px-6 md:px-20">
+          <section
+            key={pillar.eyebrow}
+            className={`${bgClass} py-16 md:py-[120px]`}
+          >
+            <div className="mx-auto max-w-7xl px-4 md:px-20">
               <div
                 className={
                   pillar.eyebrow === "FINANCE" ? "max-w-5xl" : "max-w-3xl"
@@ -119,7 +122,7 @@ export default function ServicePillars({ show }: ServicePillarsProps = {}) {
                   {pillar.eyebrow}
                 </motion.p>
                 <motion.h2
-                  className={`mt-4 font-serif text-[40px] font-semibold leading-tight md:text-[48px] ${isDark ? "text-white" : "text-navy"} ${pillar.eyebrow === "FINANCE" ? "whitespace-nowrap" : ""}`}
+                  className={`mt-4 font-serif text-3xl font-semibold leading-tight md:text-[48px] ${isDark ? "text-white" : "text-navy"} ${pillar.eyebrow === "FINANCE" ? "md:whitespace-nowrap" : ""}`}
                   {...getServiceHeadlineProps(reducedMotion)}
                 >
                   {pillar.title}

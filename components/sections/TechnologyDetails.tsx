@@ -43,8 +43,8 @@ export default function TechnologyDetails() {
 
   return (
     <>
-      <section className="bg-white py-[120px]">
-        <div className="mx-auto max-w-7xl px-6 md:px-20">
+      <section className="bg-white py-16 md:py-[120px]">
+        <div className="mx-auto max-w-7xl px-4 md:px-20">
           <div className="max-w-3xl">
             <motion.p
               className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-slate"
@@ -53,7 +53,7 @@ export default function TechnologyDetails() {
               INTELLIGENT ERP
             </motion.p>
             <motion.h2
-              className="mt-4 font-serif text-[40px] font-semibold leading-tight text-navy md:text-[48px]"
+              className="mt-4 font-serif text-3xl font-semibold leading-tight text-navy md:text-[48px]"
               {...getTechPageHeadingProps(reducedMotion)}
             >
               We build operating systems for consumer brands.
@@ -78,29 +78,33 @@ export default function TechnologyDetails() {
             </motion.p>
           </div>
 
-          <div className="mt-20">
-            <ERPArchitectureDiagram
-              animated
-              staggerAgents
-              layerBaseDelay={techPageDiagramBaseDelay}
-            />
+          <div className="mt-12 w-full min-w-0 md:mt-20">
+            <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
+              <div className="min-w-[320px] sm:min-w-0">
+                <ERPArchitectureDiagram
+                  animated
+                  staggerAgents
+                  layerBaseDelay={techPageDiagramBaseDelay}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-offWhite py-[120px]">
-        <div className="mx-auto max-w-7xl px-6 md:px-20">
+      <section className="bg-offWhite py-16 md:py-[120px]">
+        <div className="mx-auto max-w-7xl px-4 md:px-20">
           <motion.h2
-            className="font-serif text-[40px] font-semibold leading-tight text-navy md:text-[48px]"
+            className="font-serif text-3xl font-semibold leading-tight text-navy md:text-[48px]"
             {...getTechPageHeadingProps(reducedMotion)}
           >
             How each layer works.
           </motion.h2>
-          <div className="mt-16 grid gap-8 md:grid-cols-2">
+          <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-2 md:gap-8">
             {layers.map((layer, index) => (
               <motion.div
                 key={layer.title}
-                className="rounded border border-midBlue/40 bg-white px-6 py-8"
+                className="rounded border border-midBlue/40 bg-white px-5 py-6 md:px-6 md:py-8"
                 {...getTechPageLayerCardProps(reducedMotion, index)}
               >
                 <h3 className="font-sans text-lg font-semibold text-navy">
@@ -131,8 +135,8 @@ export default function TechnologyDetails() {
         </div>
       </section>
 
-      <section className="bg-textPrimary py-[120px]">
-        <div className="mx-auto max-w-7xl px-6 md:px-20">
+      <section className="bg-textPrimary py-16 md:py-[120px]">
+        <div className="mx-auto max-w-7xl px-4 md:px-20">
           <div className="max-w-3xl">
             <motion.p
               className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-blueGray"
@@ -141,7 +145,7 @@ export default function TechnologyDetails() {
               INTEGRATIONS
             </motion.p>
             <motion.h2
-              className="mt-4 font-serif text-[40px] font-semibold leading-tight text-white md:text-[48px]"
+              className="mt-4 font-serif text-3xl font-semibold leading-tight text-white md:text-[48px]"
               {...getTechPageHeadingProps(reducedMotion)}
             >
               Built for the CPG stack.
@@ -159,11 +163,11 @@ export default function TechnologyDetails() {
             </motion.p>
           </div>
 
-          <div className="mt-12 flex flex-wrap gap-3">
+          <div className="mt-10 flex flex-wrap gap-2 sm:mt-12 sm:gap-3">
             {cpgSystems.map((system, index) => (
               <motion.div
                 key={system}
-                className="rounded border px-5 py-3"
+                className="rounded border px-4 py-2.5 sm:px-5 sm:py-3"
                 style={{
                   backgroundColor: colors.navyMid,
                   borderColor: colors.slate,

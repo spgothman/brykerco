@@ -28,18 +28,18 @@ export default function OriginStory() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-white py-[120px]">
-      <div className="mx-auto max-w-7xl px-6 md:px-20">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
+    <section className="bg-white py-16 md:py-[120px]">
+      <div className="mx-auto max-w-7xl px-4 md:px-20">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div>
             <motion.h2
-              className="font-serif text-[40px] font-semibold leading-tight text-navy md:text-[48px]"
+              className="font-serif text-3xl font-semibold leading-tight text-navy md:text-[48px]"
               {...getAboutHeadingProps(reducedMotion)}
             >
               Where we came from.
             </motion.h2>
             <div
-              className="origin-story-body mt-8 space-y-6 text-base leading-relaxed"
+              className="origin-story-body mt-6 space-y-5 text-base leading-relaxed md:mt-8 md:space-y-6"
               style={bodyFontStyle}
             >
               {paragraphs.map((paragraph, index) => (

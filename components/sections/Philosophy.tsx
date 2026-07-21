@@ -30,19 +30,19 @@ export default function Philosophy() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-navy py-[120px]">
-      <div className="mx-auto max-w-7xl px-6 md:px-20">
+    <section className="bg-navy py-16 md:py-[120px]">
+      <div className="mx-auto max-w-7xl px-4 md:px-20">
         <motion.h2
-          className="font-serif text-[40px] font-semibold leading-tight text-white md:text-[48px]"
+          className="font-serif text-3xl font-semibold leading-tight text-white md:text-[48px]"
           {...getAboutHeadingProps(reducedMotion)}
         >
           How we work.
         </motion.h2>
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-3 md:gap-8">
           {principles.map((principle, index) => (
             <motion.div
               key={principle.title}
-              className="rounded border px-6 py-8"
+              className="rounded border px-5 py-6 md:px-6 md:py-8"
               style={{
                 backgroundColor: colors.navyMid,
                 borderColor: colors.slate,

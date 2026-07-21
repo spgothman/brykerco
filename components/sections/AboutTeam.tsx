@@ -27,15 +27,15 @@ export default function AboutTeam() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-offWhite py-[120px]">
-      <div className="mx-auto max-w-7xl px-6 md:px-20">
+    <section className="bg-offWhite py-16 md:py-[120px]">
+      <div className="mx-auto max-w-7xl px-4 md:px-20">
         <motion.h2
-          className="font-serif text-[40px] font-semibold leading-tight text-navy md:text-[48px]"
+          className="font-serif text-3xl font-semibold leading-tight text-navy md:text-[48px]"
           {...getAboutHeadingProps(reducedMotion)}
         >
           The team.
         </motion.h2>
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-3 md:gap-8">
           {teamMembers.map((member, index) => (
             <TeamCard key={member.name} {...member} index={index} />
           ))}

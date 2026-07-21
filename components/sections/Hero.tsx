@@ -51,22 +51,23 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex min-h-screen items-center px-6 md:px-20">
+      <div className="relative z-10 flex min-h-screen items-center px-4 md:px-20">
         <div className="max-w-[800px]">
           <p
-            className="font-sans text-[11px] font-medium tracking-[0.12em]"
+            className="max-w-full font-sans text-[11px] font-medium tracking-[0.08em] sm:tracking-[0.12em]"
             style={{ color: colors.accent }}
           >
-            ESTABLISHED 2016 &nbsp;&middot;&nbsp; OPERATING PARTNER &nbsp;&middot;&nbsp;
-            MIDDLE MARKET CPG
+            ESTABLISHED 2016{" "}
+            <span aria-hidden>&middot;</span> OPERATING PARTNER{" "}
+            <span aria-hidden>&middot;</span> MIDDLE MARKET CPG
           </p>
 
-          <h1 className="mt-6 font-serif text-[44px] font-bold leading-[1.1] text-white md:text-[68px]">
+          <h1 className="mt-6 font-serif text-3xl font-bold leading-[1.1] text-white sm:text-[44px] md:text-[68px]">
             The operating partner for high-growth consumer brands.
           </h1>
 
           <p
-            className="mt-6 max-w-[600px] font-sans text-lg leading-[1.75]"
+            className="mt-6 max-w-[600px] font-sans text-base leading-[1.75] sm:text-lg"
             style={{ color: colors.white75 }}
           >
             Bryker & Co. embeds experienced operators inside your organization,
@@ -74,10 +75,10 @@ export default function Hero() {
             companies for institutional capital and successful transactions.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <Link
               href="/results"
-              className="inline-flex rounded-sm px-7 py-3.5 font-sans font-semibold"
+              className="inline-flex items-center justify-center rounded-sm px-7 py-3.5 font-sans font-semibold"
               style={{
                 backgroundColor: "#FFFFFF",
                 color: "#1E2D3D",
@@ -90,7 +91,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/about"
-              className="inline-flex rounded-sm border border-white bg-transparent px-7 py-3.5 font-sans text-sm font-semibold text-white transition-colors duration-150 hover:bg-white/10"
+              className="inline-flex items-center justify-center rounded-sm border border-white bg-transparent px-7 py-3.5 font-sans text-sm font-semibold text-white transition-colors duration-150 hover:bg-white/10"
             >
               Learn About Bryker
             </Link>

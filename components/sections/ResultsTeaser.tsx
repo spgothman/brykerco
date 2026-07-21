@@ -10,10 +10,10 @@ export default function ResultsTeaser() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-navy py-[120px]">
-      <div className="mx-auto max-w-3xl px-6 text-center md:px-20">
+    <section className="bg-navy py-16 md:py-[120px]">
+      <div className="mx-auto max-w-3xl px-4 text-center md:px-20">
         <motion.h2
-          className="font-serif text-[40px] font-semibold leading-tight text-white md:text-[48px]"
+          className="font-serif text-3xl font-semibold leading-tight text-white md:text-[48px]"
           {...getFadeUpProps(reducedMotion)}
         >
           Proven in the field.

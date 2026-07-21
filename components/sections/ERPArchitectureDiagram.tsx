@@ -43,7 +43,7 @@ function DiagramCard({
 }) {
   return (
     <div
-      className={`rounded border px-5 py-3 ${className}`}
+      className={`rounded border px-3 py-3 sm:px-5 ${className}`}
       style={{
         backgroundColor: colors.navyMid,
         borderColor: highlighted ? colors.accent : colors.slate,
@@ -57,7 +57,9 @@ function DiagramCard({
 
 function CardLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-sans text-xs font-medium text-white">{children}</p>
+    <p className="break-words font-sans text-[10px] font-medium leading-snug text-white sm:text-xs">
+      {children}
+    </p>
   )
 }
 
@@ -118,10 +120,10 @@ export default function ERPArchitectureDiagram({
 
   return (
     <div
-      className="flex flex-col items-center"
+      className="flex w-full min-w-0 flex-col items-center"
       aria-label="Intelligent ERP architecture"
     >
-      <div className="w-full">
+      <div className="w-full min-w-0">
         {animated && staggerAgents ? (
           <>
             <motion.p
@@ -130,20 +132,21 @@ export default function ERPArchitectureDiagram({
             >
               Closed-Loop Interface
             </motion.p>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-3 lg:grid-cols-6">
               {agents.map((agent, index) => (
                 <motion.div
                   key={agent}
+                  className="min-w-0"
                   {...getTechPageAgentCardProps(
                     reducedMotion,
                     index,
                     agentsBaseDelay,
                   )}
                 >
-                  <DiagramCard className="text-center">
+                  <DiagramCard className="h-full text-center">
                     <CardLabel>{agent}</CardLabel>
                     <p
-                      className="mt-1 font-sans text-[10px] font-medium uppercase tracking-wider"
+                      className="mt-1 font-sans text-[9px] font-medium uppercase tracking-wider sm:text-[10px]"
                       style={{ color: colors.accent }}
                     >
                       +AGENT
@@ -160,17 +163,17 @@ export default function ERPArchitectureDiagram({
             layerIndexFromBottom={3}
             layerBaseDelay={layerBaseDelay}
             layerStagger={layerStagger}
-            className="w-full"
+            className="w-full min-w-0"
           >
             <p className="mb-4 text-center font-sans text-[11px] font-medium uppercase tracking-[0.1em] text-blueGray">
               Closed-Loop Interface
             </p>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-3 lg:grid-cols-6">
               {agents.map((agent) => (
-                <DiagramCard key={agent} className="text-center">
+                <DiagramCard key={agent} className="min-w-0 text-center">
                   <CardLabel>{agent}</CardLabel>
                   <p
-                    className="mt-1 font-sans text-[10px] font-medium uppercase tracking-wider"
+                    className="mt-1 font-sans text-[9px] font-medium uppercase tracking-wider sm:text-[10px]"
                     style={{ color: colors.accent }}
                   >
                     +AGENT
@@ -192,7 +195,7 @@ export default function ERPArchitectureDiagram({
         layerIndexFromBottom={2}
         layerBaseDelay={layerBaseDelay}
         layerStagger={layerStagger}
-        className="w-full max-w-xl"
+        className="w-full max-w-xl min-w-0"
       >
         <DiagramCard highlighted className="text-center">
           <CardLabel>Intelligence + Context Layer</CardLabel>
@@ -209,7 +212,7 @@ export default function ERPArchitectureDiagram({
         layerIndexFromBottom={1}
         layerBaseDelay={layerBaseDelay}
         layerStagger={layerStagger}
-        className="w-full max-w-md"
+        className="w-full max-w-md min-w-0"
       >
         <DiagramCard className="text-center">
           <CardLabel>API + Data Warehouse</CardLabel>
@@ -226,12 +229,12 @@ export default function ERPArchitectureDiagram({
         layerIndexFromBottom={0}
         layerBaseDelay={layerBaseDelay}
         layerStagger={layerStagger}
-        className="w-full"
+        className="w-full min-w-0"
       >
         <p className="mb-4 text-center font-sans text-[11px] font-medium uppercase tracking-[0.1em] text-blueGray">
           Common CPG Systems
         </p>
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
           {cpgSystems.map((system) => (
             <DiagramCard key={system}>
               <CardLabel>{system}</CardLabel>

@@ -56,8 +56,8 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-10">
-      <div>
+    <form onSubmit={handleSubmit} className="w-full max-w-full space-y-6 md:space-y-10">
+      <div className="w-full min-w-0">
         <label htmlFor="fullName" className={labelClassName}>
           Full Name
         </label>
@@ -71,7 +71,7 @@ export default function ContactForm() {
         />
       </div>
 
-      <div>
+      <div className="w-full min-w-0">
         <label htmlFor="company" className={labelClassName}>
           Company
         </label>
@@ -85,7 +85,7 @@ export default function ContactForm() {
         />
       </div>
 
-      <div>
+      <div className="w-full min-w-0">
         <label htmlFor="email" className={labelClassName}>
           Email
         </label>
@@ -99,7 +99,7 @@ export default function ContactForm() {
         />
       </div>
 
-      <div>
+      <div className="w-full min-w-0">
         <label htmlFor="message" className={labelClassName}>
           How can we help?
         </label>
