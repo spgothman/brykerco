@@ -158,56 +158,48 @@ function MobileTimelineStep({
   index: number
   reducedMotion: boolean
 }) {
+  const dateLabel = (
+    <p className="font-sans text-[11px] font-medium uppercase tracking-[0.1em] text-slate">
+      {step.date}
+    </p>
+  )
+
+  const titleAndBody = (
+    <>
+      <h3 className="font-sans text-sm font-semibold text-navy">{step.title}</h3>
+      <p className="mt-2 font-sans text-xs leading-relaxed text-blueGray">
+        {step.body}
+      </p>
+    </>
+  )
+
+  const dot = (
+    <div
+      className="absolute left-[5px] top-[28px] z-10 -translate-x-1/2"
+      aria-hidden
+    >
+      <TimelineDot />
+    </div>
+  )
+
   if (reducedMotion) {
     return (
-      <div className="relative flex flex-col items-start">
-        <div className="absolute -left-8 top-[26px]">
-          <TimelineDot />
-        </div>
-        <p className="font-sans text-[10px] font-medium uppercase tracking-[0.1em] text-slate">
-          {step.date}
-        </p>
-        <h3 className="mt-3 font-sans text-sm font-semibold text-navy">
-          {step.title}
-        </h3>
-        <p className="mt-2 font-sans text-xs leading-relaxed text-blueGray">
-          {step.body}
-        </p>
+      <div className="relative pl-8">
+        {dot}
+        {dateLabel}
+        <div className="mt-2">{titleAndBody}</div>
       </div>
     )
   }
 
   return (
-    <div className="relative flex flex-col items-start">
-      <motion.div
-        className="absolute -left-8 top-[26px]"
-        initial={{ scale: 0, opacity: 0 }}
-        whileInView={{ scale: 1, opacity: 1 }}
-        viewport={timelineViewport}
-        transition={{
-          ...dotSpring,
-          delay: getDotDelay(index),
-        }}
-      >
-        <TimelineDot />
-      </motion.div>
+    <div className="relative pl-8">
+      {dot}
 
-      <motion.p
-        className="font-sans text-[10px] font-medium uppercase tracking-[0.1em] text-slate"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={timelineViewport}
-        transition={{
-          duration: DATE_DURATION,
-          ease: "easeOut",
-          delay: getDateDelay(index),
-        }}
-      >
-        {step.date}
-      </motion.p>
+      {dateLabel}
 
       <motion.div
-        className="w-full"
+        className="mt-2 w-full"
         initial={{ opacity: 0, y: 8 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={timelineViewport}
@@ -217,12 +209,7 @@ function MobileTimelineStep({
           delay: getLabelDelay(index),
         }}
       >
-        <h3 className="mt-3 font-sans text-sm font-semibold text-navy">
-          {step.title}
-        </h3>
-        <p className="mt-2 font-sans text-xs leading-relaxed text-blueGray">
-          {step.body}
-        </p>
+        {titleAndBody}
       </motion.div>
     </div>
   )
@@ -289,25 +276,13 @@ export default function CaseStudyTimeline() {
         </div>
 
         <div className="relative mt-12 md:hidden">
-          {reducedMotion ? (
-            <div
-              className="absolute bottom-0 left-[5px] top-0 w-px"
-              style={{ backgroundColor: colors.midBlue }}
-              aria-hidden
-            />
-          ) : (
-            <motion.div
-              className="absolute bottom-0 left-[5px] top-0 w-px origin-top"
-              style={{ backgroundColor: colors.midBlue }}
-              aria-hidden
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={timelineViewport}
-              transition={{ duration: LINE_DURATION, ease: "easeOut" }}
-            />
-          )}
+          <div
+            className="absolute bottom-0 left-[5px] top-0 w-px"
+            style={{ backgroundColor: colors.midBlue }}
+            aria-hidden
+          />
 
-          <div className="flex flex-col gap-8 pl-8 sm:gap-12">
+          <div className="flex flex-col gap-8 sm:gap-12">
             {steps.map((step, index) => (
               <MobileTimelineStep
                 key={`${step.date}-${step.title}`}

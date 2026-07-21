@@ -11,7 +11,7 @@ export default function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="relative isolate min-h-screen bg-navy">
+    <section className="relative isolate min-h-[90vh] bg-navy md:min-h-screen">
       {!prefersReducedMotion && (
         <div
           className="animate-hero-gradient-drift absolute inset-0 z-0"
@@ -51,7 +51,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex min-h-screen items-center px-4 md:px-20">
+      <div className="relative z-10 flex min-h-[90vh] items-start px-4 pt-28 md:min-h-screen md:items-center md:px-20 md:pt-0">
         <div className="max-w-[800px]">
           <p
             className="max-w-full font-sans text-[11px] font-medium tracking-[0.08em] sm:tracking-[0.12em]"
@@ -59,10 +59,11 @@ export default function Hero() {
           >
             ESTABLISHED 2016{" "}
             <span aria-hidden>&middot;</span> OPERATING PARTNER{" "}
-            <span aria-hidden>&middot;</span> MIDDLE MARKET CPG
+            <span aria-hidden>&middot;</span>
+            <br className="block md:hidden" /> MIDDLE MARKET CPG
           </p>
 
-          <h1 className="mt-6 font-serif text-3xl font-bold leading-[1.1] text-white sm:text-[44px] md:text-[68px]">
+          <h1 className="mt-8 font-serif text-3xl font-bold leading-[1.1] text-white sm:text-[44px] md:mt-6 md:text-[68px]">
             The operating partner for high-growth consumer brands.
           </h1>
 
