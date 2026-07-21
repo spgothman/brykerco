@@ -17,7 +17,7 @@ const steps = [
     body: "Led the seed round as sponsor, structuring the deal to align founder and investor incentives.",
   },
   {
-    date: "2022",
+    date: "2022 to 2025",
     title: "Embedded Leadership",
     body: "Assumed operating roles across finance, operations, and tech, building infrastructure from scratch.",
   },
