@@ -4,12 +4,7 @@ import { motion } from "framer-motion"
 import { getFadeInProps, getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 
-type ClientLogo = {
-  src: string
-  href?: string
-}
-
-const clientLogos: ClientLogo[] = [
+const clientLogos: { src: string; href?: string }[] = [
   {
     src: "/images/tombstones/masa.png",
     href: "https://www.masachips.com",
