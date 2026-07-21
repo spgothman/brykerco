@@ -4,7 +4,12 @@ import { motion } from "framer-motion"
 import { getFadeInProps, getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 
-const clientLogos = [
+type ClientLogo = {
+  src: string
+  href?: string
+}
+
+const clientLogos: ClientLogo[] = [
   {
     src: "/images/tombstones/masa.png",
     href: "https://www.masachips.com",
@@ -68,7 +73,7 @@ const clientLogos = [
     src: "/images/tombstones/flighty.png",
     href: "https://www.flighty.app",
   },
-] as const
+]
 
 export default function ClientsTombstones() {
   const reducedMotion = usePrefersReducedMotion()
