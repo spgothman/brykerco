@@ -11,7 +11,7 @@ export default function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="relative isolate min-h-[90vh] bg-navy md:min-h-screen">
+    <section className="relative isolate h-[88vh] bg-navy md:h-auto md:min-h-screen">
       {!prefersReducedMotion && (
         <div
           className="animate-hero-gradient-drift absolute inset-0 z-0"
@@ -51,7 +51,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex min-h-[90vh] items-start px-4 pt-28 md:min-h-screen md:items-center md:px-20 md:pt-0">
+      <div className="relative z-10 flex h-[88vh] items-start px-4 pt-28 md:h-auto md:min-h-screen md:items-center md:px-20 md:pt-0">
         <div className="max-w-[800px]">
           <p
             className="max-w-full font-sans text-[11px] font-medium tracking-[0.08em] sm:tracking-[0.12em]"
@@ -68,7 +68,7 @@ export default function Hero() {
           </h1>
 
           <p
-            className="mt-6 max-w-[600px] font-sans text-base leading-[1.75] sm:text-lg"
+            className="mt-6 max-w-[600px] font-sans text-sm leading-[1.75] md:text-lg"
             style={{ color: colors.white75 }}
           >
             Bryker & Co. embeds experienced operators inside your organization,
@@ -76,7 +76,7 @@ export default function Hero() {
             companies for institutional capital and successful transactions.
           </p>
 
-          <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+          <div className="mt-4 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 md:mt-10">
             <Link
               href="/results"
               className="inline-flex items-center justify-center rounded-sm px-7 py-3.5 font-sans font-semibold"
