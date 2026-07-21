@@ -76,7 +76,7 @@ export default function Hero() {
             companies for institutional capital and successful transactions.
           </p>
 
-          <div className="mt-8 flex flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+          <div className="mt-20 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 md:mt-10">
             <Link
               href="/results"
               className="inline-flex items-center justify-center rounded-sm px-7 py-3.5 font-sans font-semibold"
