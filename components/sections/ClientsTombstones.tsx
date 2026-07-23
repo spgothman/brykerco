@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { getFadeInProps, getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 
@@ -100,15 +100,17 @@ const pillBaseClassName =
 export default function ClientsTombstones() {
   const reducedMotion = usePrefersReducedMotion()
   const [tappedIndex, setTappedIndex] = useState<number | null>(null)
+  const openedByTouchRef = useRef(false)
 
   useEffect(() => {
     if (tappedIndex === null) return
 
     let removeListener: (() => void) | undefined
 
-    // Defer so the same tap that opened the pills doesn't immediately clear them
+    // Defer so the same click that opened the pills doesn't immediately clear them
     const timeoutId = window.setTimeout(() => {
       const onPointerDown = (event: PointerEvent) => {
+        if (event.pointerType === "touch") return
         const target = event.target as Element | null
         if (!target?.closest("[data-tombstone]")) {
           setTappedIndex(null)
@@ -146,12 +148,6 @@ export default function ClientsTombstones() {
             const isTapped = tappedIndex === index
             const fadeProps = getFadeInProps(reducedMotion, index * 0.05)
 
-            const handleTileActivate = () => {
-              // Desktop uses CSS hover only; still allow state updates but
-              // md:opacity utilities ignore tap state above the md breakpoint.
-              setTappedIndex((current) => (current === index ? null : index))
-            }
-
             return (
               <motion.div
                 key={src}
@@ -161,11 +157,36 @@ export default function ClientsTombstones() {
                 tabIndex={0}
                 className="group relative flex cursor-pointer items-center justify-center overflow-hidden rounded border bg-white p-5 transition-shadow duration-200 hover:shadow-md sm:p-10"
                 style={{ borderColor: "#E2E8F0" }}
-                onClick={handleTileActivate}
+                onTouchStart={() => {
+                  openedByTouchRef.current = true
+                  setTappedIndex(index)
+                }}
+                onTouchEnd={() => {
+                  setTappedIndex((current) =>
+                    current === index ? null : current,
+                  )
+                }}
+                onTouchCancel={() => {
+                  setTappedIndex((current) =>
+                    current === index ? null : current,
+                  )
+                }}
+                onClick={() => {
+                  // Fallback for non-touch devices; ignore synthetic click after touch
+                  if (openedByTouchRef.current) {
+                    openedByTouchRef.current = false
+                    return
+                  }
+                  setTappedIndex((current) =>
+                    current === index ? null : index,
+                  )
+                }}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault()
-                    handleTileActivate()
+                    setTappedIndex((current) =>
+                      current === index ? null : index,
+                    )
                   }
                 }}
               >
