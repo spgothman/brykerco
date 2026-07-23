@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
 import { getFadeInProps, getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 
@@ -93,11 +94,27 @@ const clientLogos: {
   },
 ]
 
-const pillClassName =
-  "pointer-events-none w-fit rounded-full bg-[#1E2D3D] px-2 py-0.5 font-sans text-xs text-white opacity-100 transition-opacity duration-300 md:px-2.5 md:py-1 md:opacity-0 md:group-hover:opacity-100"
+function isDesktopViewport() {
+  return window.matchMedia("(min-width: 768px)").matches
+}
 
 export default function ClientsTombstones() {
   const reducedMotion = usePrefersReducedMotion()
+  const [tappedIndex, setTappedIndex] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (tappedIndex === null) return
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Element | null
+      if (!target?.closest("[data-tombstone]")) {
+        setTappedIndex(null)
+      }
+    }
+
+    document.addEventListener("pointerdown", onPointerDown)
+    return () => document.removeEventListener("pointerdown", onPointerDown)
+  }, [tappedIndex])
 
   return (
     <section className="bg-offWhite py-16 md:py-[120px]">
@@ -117,12 +134,21 @@ export default function ClientsTombstones() {
             )
             const isWilliamMurray = src.includes("william-murray")
             const isOnnit = src.includes("onnit")
+            const isTapped = tappedIndex === index
+            const pillClassName = `pointer-events-none w-fit rounded-full bg-[#1E2D3D] px-2 py-0.5 font-sans text-xs text-white transition-opacity duration-300 md:px-2.5 md:py-1 md:opacity-0 md:group-hover:opacity-100 ${
+              isTapped ? "opacity-100" : "opacity-0"
+            }`
 
             return (
               <motion.div
                 key={src}
-                className="group relative flex items-center justify-center overflow-hidden rounded border bg-white px-5 pt-5 pb-16 transition-shadow duration-200 hover:shadow-md sm:px-10 sm:pt-10 sm:pb-20 md:p-10"
+                data-tombstone
+                className="group relative flex cursor-pointer items-center justify-center overflow-hidden rounded border bg-white p-5 transition-shadow duration-200 hover:shadow-md sm:p-10"
                 style={{ borderColor: "#E2E8F0" }}
+                onClick={() => {
+                  if (isDesktopViewport()) return
+                  setTappedIndex((current) => (current === index ? null : index))
+                }}
                 {...getFadeInProps(reducedMotion, index * 0.05)}
               >
                 {href ? (
@@ -131,6 +157,11 @@ export default function ClientsTombstones() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="relative z-10 block w-full"
+                    onClick={(event) => {
+                      if (!isDesktopViewport()) {
+                        event.preventDefault()
+                      }
+                    }}
                   >
                     <img
                       src={src}
