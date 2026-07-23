@@ -94,7 +94,7 @@ const clientLogos: {
 ]
 
 const pillClassName =
-  "pointer-events-none absolute z-20 rounded-full bg-[#1E2D3D] px-2.5 py-1 font-sans text-xs text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+  "pointer-events-none w-fit rounded-full bg-[#1E2D3D] px-2.5 py-1 font-sans text-xs text-white opacity-100 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100"
 
 export default function ClientsTombstones() {
   const reducedMotion = usePrefersReducedMotion()
@@ -157,15 +157,17 @@ export default function ClientsTombstones() {
                   }`}
                   aria-hidden
                 />
-                {leftPill && (
-                  <span className={`${pillClassName} bottom-2 left-2`}>
-                    {leftPill}
-                  </span>
-                )}
-                {rightPill && (
-                  <span className={`${pillClassName} bottom-2 right-2`}>
-                    {rightPill}
-                  </span>
+                {(leftPill || rightPill) && (
+                  <div className="absolute bottom-2 left-2 z-20 flex flex-col gap-1.5 md:right-2 md:flex-row md:items-end md:justify-between">
+                    {leftPill && (
+                      <span className={pillClassName}>{leftPill}</span>
+                    )}
+                    {rightPill && (
+                      <span className={`${pillClassName} md:ml-auto`}>
+                        {rightPill}
+                      </span>
+                    )}
+                  </div>
                 )}
               </motion.div>
             )
