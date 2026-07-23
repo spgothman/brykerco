@@ -107,7 +107,11 @@ export default function ServicePillars({ show }: ServicePillarsProps = {}) {
         return (
           <section
             key={pillar.eyebrow}
-            className={`${bgClass} py-16 md:py-[120px]`}
+            className={`${bgClass} ${
+              isDark
+                ? "pt-16 pb-8 md:pt-[120px] md:pb-[60px]"
+                : "py-16 md:py-[120px]"
+            }`}
           >
             <div className="mx-auto max-w-7xl px-4 md:px-20">
               <div

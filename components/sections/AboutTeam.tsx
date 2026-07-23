@@ -10,16 +10,19 @@ const teamMembers = [
     name: "Josh Holley",
     title: "Founder & Managing Partner",
     imageSrc: "/images/team/Holley_Grey Background.png",
+    linkedInUrl: "https://www.linkedin.com/in/josh-holley-01b56227/",
   },
   {
     name: "Shane Gothman",
     title: "Partner",
     imageSrc: "/images/team/Gothman_Grey Background.png",
+    linkedInUrl: "https://www.linkedin.com/in/shane-gothman-cpa-b288ab59/",
   },
   {
     name: "Travis Walker",
     title: "Vice President",
     imageSrc: "/images/team/Walker_Grey Background.png",
+    linkedInUrl: "https://www.linkedin.com/in/travis-walker-cpa-594223113/",
   },
 ] as const
 
@@ -27,7 +30,7 @@ export default function AboutTeam() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-offWhite py-16 md:py-[120px]">
+    <section id="team" className="scroll-mt-[72px] bg-offWhite py-16 md:py-[120px]">
       <div className="mx-auto max-w-7xl px-4 md:px-20">
         <motion.h2
           className="font-serif text-3xl font-semibold leading-tight text-navy md:text-[48px]"

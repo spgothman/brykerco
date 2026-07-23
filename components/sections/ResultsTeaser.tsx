@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { colors } from "@/lib/tokens"
 import { getFadeInProps, getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 
@@ -10,7 +9,7 @@ export default function ResultsTeaser() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-navy py-16 md:py-[120px]">
+    <section className="bg-navy pt-16 pb-8 md:pt-[120px] md:pb-[60px]">
       <div className="mx-auto max-w-3xl px-4 text-center md:px-20">
         <motion.h2
           className="font-serif text-3xl font-semibold leading-tight text-white md:text-[48px]"
@@ -18,16 +17,6 @@ export default function ResultsTeaser() {
         >
           Proven in the field.
         </motion.h2>
-        <motion.p
-          className="mt-6 font-sans text-base leading-relaxed"
-          style={{ color: colors.white75 }}
-          {...getFadeInProps(reducedMotion)}
-        >
-          The Bryker team sourced, invested in, and operated a high-growth
-          consumer brand from seed stage through a successful strategic
-          transaction. Embedded operators built the finance, operations, and
-          technology infrastructure that made it possible.
-        </motion.p>
         <motion.div className="mt-10" {...getFadeInProps(reducedMotion, 0.2)}>
           <Link
             href="/results"

@@ -1,8 +1,7 @@
 import Hero from "@/components/sections/Hero"
-import IntelligentERP from "@/components/sections/IntelligentERP"
 import MetricsStrip from "@/components/sections/MetricsStrip"
 import ResultsTeaser from "@/components/sections/ResultsTeaser"
-import ServicePillars from "@/components/sections/ServicePillars"
+import ServicesInteractive from "@/components/sections/ServicesInteractive"
 import { createPageMetadata } from "@/lib/metadata"
 
 export const metadata = createPageMetadata({
@@ -17,8 +16,7 @@ export default function HomePage() {
     <main>
       <Hero />
       <MetricsStrip />
-      <ServicePillars show={["FINANCE", "OPERATIONS"]} />
-      <IntelligentERP />
+      <ServicesInteractive />
       <ResultsTeaser />
     </main>
   )

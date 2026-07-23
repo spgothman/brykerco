@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Fragment, useSyncExternalStore } from "react"
+import { Fragment, useEffect, useRef, useState, useSyncExternalStore } from "react"
 import CountUp from "@/components/ui/CountUp"
 import { getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
@@ -11,6 +11,11 @@ const VALUE_CLASS =
 
 const PRACTICE_VALUE_CLASS =
   "text-center text-[24px] font-bold leading-tight text-white md:text-[32px]"
+
+const CPG_TARGET = "CPG"
+const CPG_LOCK_MS = [600, 800, 1000] as const
+const CPG_TICK_MS = 50
+const CPG_DURATION_MS = 1000
 
 const metrics = [
   {
@@ -30,8 +35,8 @@ const metrics = [
     label: "PRACTICE AREAS",
   },
   {
-    kind: "static" as const,
-    display: "CPG",
+    kind: "scramble" as const,
+    display: CPG_TARGET,
     label: "SECTOR FOCUS",
   },
 ]
@@ -55,6 +60,93 @@ function useIsMdUp() {
     subscribeMdUp,
     getMdUpSnapshot,
     getMdUpServerSnapshot,
+  )
+}
+
+function randomUpperLetter() {
+  return String.fromCharCode(65 + Math.floor(Math.random() * 26))
+}
+
+function isElementInViewport(el: HTMLElement) {
+  const rect = el.getBoundingClientRect()
+  return rect.top < window.innerHeight && rect.bottom > 0
+}
+
+function CpgScramble({ className }: { className: string }) {
+  const reducedMotion = usePrefersReducedMotion()
+  const ref = useRef<HTMLParagraphElement>(null)
+  const hasAnimatedRef = useRef(false)
+  const [display, setDisplay] = useState(CPG_TARGET)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || hasAnimatedRef.current) return
+
+    let intervalId: ReturnType<typeof setInterval> | null = null
+
+    const runAnimation = () => {
+      if (hasAnimatedRef.current) return
+      hasAnimatedRef.current = true
+
+      if (reducedMotion) {
+        setDisplay(CPG_TARGET)
+        return
+      }
+
+      const start = performance.now()
+      const locked = [false, false, false]
+
+      intervalId = setInterval(() => {
+        const elapsed = performance.now() - start
+        const next = CPG_TARGET.split("")
+
+        for (let i = 0; i < next.length; i++) {
+          if (!locked[i] && elapsed >= CPG_LOCK_MS[i]) {
+            locked[i] = true
+          }
+          if (!locked[i]) {
+            next[i] = randomUpperLetter()
+          }
+        }
+
+        setDisplay(next.join(""))
+
+        if (locked.every(Boolean) || elapsed >= CPG_DURATION_MS) {
+          setDisplay(CPG_TARGET)
+          if (intervalId !== null) clearInterval(intervalId)
+          intervalId = null
+        }
+      }, CPG_TICK_MS)
+    }
+
+    if (isElementInViewport(el)) {
+      runAnimation()
+      return () => {
+        if (intervalId !== null) clearInterval(intervalId)
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          runAnimation()
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -40px 0px" },
+    )
+
+    observer.observe(el)
+    return () => {
+      observer.disconnect()
+      if (intervalId !== null) clearInterval(intervalId)
+    }
+  }, [reducedMotion])
+
+  return (
+    <p ref={ref} className={className} aria-label={CPG_TARGET}>
+      {display}
+    </p>
   )
 }
 
@@ -98,7 +190,11 @@ function MetricValue({
     return <PracticeAreasValue />
   }
 
-  return <p className={VALUE_CLASS}>{metric.display}</p>
+  if (metric.kind === "scramble") {
+    return <CpgScramble className={VALUE_CLASS} />
+  }
+
+  return null
 }
 
 export default function MetricsStrip() {

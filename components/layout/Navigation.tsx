@@ -14,16 +14,15 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
-  { href: "/technology", label: "Technology" },
   { href: "/results", label: "Results" },
-  { href: "/contact", label: "Contact" },
 ] as const
 
-const contactCtaStyle = {
+const investorLoginHref = "/investor-login"
+
+const ctaButtonStyle = {
   backgroundColor: "#A8BDCF",
   color: "#1E2D3D",
   border: "none",
-  fontSize: "13px",
   fontWeight: 600,
 } as const
 
@@ -62,19 +61,6 @@ export default function Navigation() {
   const { scrolled } = useScrollY(80)
   const [menuOpen, setMenuOpen] = useState(false)
   const contactCtaRef = useRef<HTMLAnchorElement>(null)
-
-  useEffect(() => {
-    const el = contactCtaRef.current
-    if (!el) return
-
-    const computed = window.getComputedStyle(el)
-    console.log("[Get in Touch] computed styles:", {
-      backgroundColor: computed.backgroundColor,
-      color: computed.color,
-      fontWeight: computed.fontWeight,
-      border: computed.border,
-    })
-  }, [])
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : ""
@@ -124,14 +110,14 @@ export default function Navigation() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 self-center">
             <Link
               ref={contactCtaRef}
-              href="/contact"
-              className="hidden rounded-sm px-5 py-2.5 font-sans md:inline-flex"
-              style={contactCtaStyle}
+              href={investorLoginHref}
+              className="hidden items-center self-center rounded-sm px-3 py-1 font-sans text-xs leading-none translate-y-1 md:inline-flex"
+              style={ctaButtonStyle}
             >
-              Get in Touch
+              Investor Login
             </Link>
 
             <button
@@ -196,12 +182,12 @@ export default function Navigation() {
               className="absolute bottom-12"
             >
               <Link
-                href="/contact"
+                href={investorLoginHref}
                 onClick={() => setMenuOpen(false)}
-                className="inline-flex rounded-sm px-5 py-2.5 font-sans"
-                style={contactCtaStyle}
+                className="inline-flex items-center rounded-sm px-3 py-1 font-sans text-xs leading-none"
+                style={ctaButtonStyle}
               >
-                Get in Touch
+                Investor Login
               </Link>
             </motion.div>
           </motion.div>

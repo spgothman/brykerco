@@ -38,6 +38,66 @@ const layers = [
   },
 ] as const
 
+export function TechnologyLayers() {
+  const reducedMotion = usePrefersReducedMotion()
+
+  return (
+    <section
+      className="pt-8 pb-16 md:pt-[60px] md:pb-[120px]"
+      style={{ backgroundColor: colors.navy }}
+    >
+      <div className="mx-auto max-w-7xl px-4 md:px-20">
+        <motion.h2
+          className="font-serif text-3xl font-semibold leading-tight text-white md:text-[48px]"
+          {...getTechPageHeadingProps(reducedMotion)}
+        >
+          How each layer works.
+        </motion.h2>
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-2 md:gap-8">
+          {layers.map((layer, index) => (
+            <motion.div
+              key={layer.title}
+              className="rounded border px-5 py-6 md:px-6 md:py-8"
+              style={{
+                backgroundColor: "#2A3D52",
+                borderColor: "#3D5A6E",
+              }}
+              {...getTechPageLayerCardProps(reducedMotion, index)}
+            >
+              <h3 className="font-sans text-lg font-semibold text-white">
+                {layer.title}
+              </h3>
+              <p
+                className="mt-4 font-sans text-sm leading-relaxed"
+                style={{ color: "#A8BDCF" }}
+              >
+                {layer.body}
+              </p>
+              {layer.items.length > 0 && (
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {layer.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded border px-3 py-1.5 font-sans text-xs font-medium"
+                      style={{
+                        borderColor: "#3D5A6E",
+                        backgroundColor: "#243446",
+                        color: "#A8BDCF",
+                      }}
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function TechnologyDetails() {
   const reducedMotion = usePrefersReducedMotion()
 
@@ -92,48 +152,7 @@ export default function TechnologyDetails() {
         </div>
       </section>
 
-      <section className="bg-offWhite py-16 md:py-[120px]">
-        <div className="mx-auto max-w-7xl px-4 md:px-20">
-          <motion.h2
-            className="font-serif text-3xl font-semibold leading-tight text-navy md:text-[48px]"
-            {...getTechPageHeadingProps(reducedMotion)}
-          >
-            How each layer works.
-          </motion.h2>
-          <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-2 md:gap-8">
-            {layers.map((layer, index) => (
-              <motion.div
-                key={layer.title}
-                className="rounded border border-midBlue/40 bg-white px-5 py-6 md:px-6 md:py-8"
-                {...getTechPageLayerCardProps(reducedMotion, index)}
-              >
-                <h3 className="font-sans text-lg font-semibold text-navy">
-                  {layer.title}
-                </h3>
-                <p className="mt-4 font-sans text-sm leading-relaxed text-blueGray">
-                  {layer.body}
-                </p>
-                {layer.items.length > 0 && (
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {layer.items.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded border px-3 py-1.5 font-sans text-xs font-medium text-navy"
-                        style={{
-                          borderColor: colors.midBlue,
-                          backgroundColor: colors.offWhite,
-                        }}
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TechnologyLayers />
 
       <section className="bg-textPrimary py-16 md:py-[120px]">
         <div className="mx-auto max-w-7xl px-4 md:px-20">

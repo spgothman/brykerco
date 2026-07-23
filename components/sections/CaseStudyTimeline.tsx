@@ -43,6 +43,11 @@ const DATE_DURATION = 0.3
 const LABEL_AFTER_DATE = 0.1
 const LABEL_DURATION = 0.4
 
+const LINE_COLOR = "#3D5A6E"
+const DATE_COLOR = "#A8BDCF"
+const BODY_COLOR = "#A8BDCF"
+const DOT_COLOR = "#A8BDCF"
+
 const dotSpring = {
   type: "spring" as const,
   stiffness: 300,
@@ -65,7 +70,7 @@ function TimelineDot() {
   return (
     <div
       className="h-3 w-3 shrink-0 rounded-full"
-      style={{ backgroundColor: colors.accent }}
+      style={{ backgroundColor: DOT_COLOR }}
     />
   )
 }
@@ -82,16 +87,22 @@ function DesktopTimelineStep({
   if (reducedMotion) {
     return (
       <div className="flex flex-col items-center">
-        <p className="text-center font-sans text-[10px] font-medium uppercase tracking-[0.1em] text-slate">
+        <p
+          className="text-center font-sans text-[10px] font-medium uppercase tracking-[0.1em]"
+          style={{ color: DATE_COLOR }}
+        >
           {step.date}
         </p>
         <div className="my-3">
           <TimelineDot />
         </div>
-        <h3 className="text-center font-sans text-sm font-semibold text-navy">
+        <h3 className="text-center font-sans text-sm font-semibold text-white">
           {step.title}
         </h3>
-        <p className="mt-2 text-center font-sans text-xs leading-relaxed text-blueGray">
+        <p
+          className="mt-2 text-center font-sans text-xs leading-relaxed"
+          style={{ color: BODY_COLOR }}
+        >
           {step.body}
         </p>
       </div>
@@ -101,7 +112,8 @@ function DesktopTimelineStep({
   return (
     <div className="flex flex-col items-center">
       <motion.p
-        className="text-center font-sans text-[10px] font-medium uppercase tracking-[0.1em] text-slate"
+        className="text-center font-sans text-[10px] font-medium uppercase tracking-[0.1em]"
+        style={{ color: DATE_COLOR }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={timelineViewport}
@@ -138,10 +150,13 @@ function DesktopTimelineStep({
           delay: getLabelDelay(index),
         }}
       >
-        <h3 className="text-center font-sans text-sm font-semibold text-navy">
+        <h3 className="text-center font-sans text-sm font-semibold text-white">
           {step.title}
         </h3>
-        <p className="mt-2 text-center font-sans text-xs leading-relaxed text-blueGray">
+        <p
+          className="mt-2 text-center font-sans text-xs leading-relaxed"
+          style={{ color: BODY_COLOR }}
+        >
           {step.body}
         </p>
       </motion.div>
@@ -159,15 +174,21 @@ function MobileTimelineStep({
   reducedMotion: boolean
 }) {
   const dateLabel = (
-    <p className="font-sans text-[11px] font-medium uppercase tracking-[0.1em] text-slate">
+    <p
+      className="font-sans text-[11px] font-medium uppercase tracking-[0.1em]"
+      style={{ color: DATE_COLOR }}
+    >
       {step.date}
     </p>
   )
 
   const titleAndBody = (
     <>
-      <h3 className="font-sans text-sm font-semibold text-navy">{step.title}</h3>
-      <p className="mt-2 font-sans text-xs leading-relaxed text-blueGray">
+      <h3 className="font-sans text-sm font-semibold text-white">{step.title}</h3>
+      <p
+        className="mt-2 font-sans text-xs leading-relaxed"
+        style={{ color: BODY_COLOR }}
+      >
         {step.body}
       </p>
     </>
@@ -219,23 +240,24 @@ export default function CaseStudyTimeline() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-offWhite py-16 md:py-[120px]">
+    <section className="bg-[#1E2D3D] pb-16 pt-[72px] md:pb-[120px]">
       <div className="mx-auto max-w-7xl px-4 md:px-20">
-        <header className="max-w-3xl">
+        <header className="max-w-3xl pb-8 pt-16 md:pb-12 md:pt-24">
           <motion.p
-            className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-slate"
+            className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-blueGray"
             {...getFadeUpProps(reducedMotion)}
           >
             CASE STUDY
           </motion.p>
-          <motion.h2
-            className="mt-4 font-serif text-3xl font-semibold leading-tight text-navy md:whitespace-nowrap md:text-[48px]"
+          <motion.h1
+            className="mt-4 font-serif text-3xl font-bold leading-tight text-white sm:text-[44px] md:text-[48px] lg:whitespace-nowrap lg:text-[52px]"
             {...getFadeUpProps(reducedMotion)}
           >
             From growth stage to a successful exit.
-          </motion.h2>
+          </motion.h1>
           <motion.p
-            className="mt-6 font-sans text-base leading-relaxed text-slate"
+            className="mt-6 max-w-2xl font-sans text-base leading-relaxed sm:text-lg md:text-xl"
+            style={{ color: colors.white75 }}
             {...getFadeInProps(reducedMotion)}
           >
             The Bryker team sourced, invested in, and operated a high-growth
@@ -244,17 +266,17 @@ export default function CaseStudyTimeline() {
           </motion.p>
         </header>
 
-        <div className="relative mt-20 hidden md:block">
+        <div className="relative mt-4 hidden md:mt-8 md:block">
           {reducedMotion ? (
             <div
               className="absolute left-0 right-0 top-[38px] h-px"
-              style={{ backgroundColor: colors.midBlue }}
+              style={{ backgroundColor: LINE_COLOR }}
               aria-hidden
             />
           ) : (
             <motion.div
               className="absolute left-0 right-0 top-[38px] h-px origin-left"
-              style={{ backgroundColor: colors.midBlue }}
+              style={{ backgroundColor: LINE_COLOR }}
               aria-hidden
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
@@ -275,10 +297,10 @@ export default function CaseStudyTimeline() {
           </div>
         </div>
 
-        <div className="relative mt-12 md:hidden">
+        <div className="relative mt-8 md:hidden">
           <div
             className="absolute bottom-0 left-[5px] top-0 w-px"
-            style={{ backgroundColor: colors.midBlue }}
+            style={{ backgroundColor: LINE_COLOR }}
             aria-hidden
           />
 

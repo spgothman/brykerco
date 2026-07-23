@@ -1,10 +1,10 @@
 export const cpgSystems = [
   "Shopify",
   "Amazon",
-  "EDI",
+  "EDI / Retail",
   "Meta",
+  "TikTok",
   "ShipStation",
-  "Monday",
 ] as const
 
 export const agents = [

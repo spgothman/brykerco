@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { colors } from "@/lib/tokens"
 import {
   getAboutCardProps,
   getAboutHeadingProps,
@@ -30,10 +29,11 @@ export default function Philosophy() {
   const reducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="bg-navy py-16 md:py-[120px]">
+    <section className="py-16 md:py-[120px]" style={{ backgroundColor: "#F2F5F8" }}>
       <div className="mx-auto max-w-7xl px-4 md:px-20">
         <motion.h2
-          className="font-serif text-3xl font-semibold leading-tight text-white md:text-[48px]"
+          className="font-serif text-3xl font-semibold leading-tight md:text-[48px]"
+          style={{ color: "#0F1A24" }}
           {...getAboutHeadingProps(reducedMotion)}
         >
           How we work.
@@ -44,17 +44,20 @@ export default function Philosophy() {
               key={principle.title}
               className="rounded border px-5 py-6 md:px-6 md:py-8"
               style={{
-                backgroundColor: colors.navyMid,
-                borderColor: colors.slate,
+                backgroundColor: "#E8ECF0",
+                borderColor: "#D4DAE0",
               }}
               {...getAboutCardProps(reducedMotion, index)}
             >
-              <h3 className="font-sans text-lg font-semibold text-white">
+              <h3
+                className="font-sans text-lg font-semibold"
+                style={{ color: "#0F1A24" }}
+              >
                 {principle.title}
               </h3>
               <p
                 className="mt-4 font-sans text-sm leading-relaxed"
-                style={{ color: colors.white75 }}
+                style={{ color: "#4A5568" }}
               >
                 {principle.description}
               </p>

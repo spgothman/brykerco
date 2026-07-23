@@ -43,11 +43,12 @@ function DiagramCard({
 }) {
   return (
     <div
-      className={`rounded border px-3 py-3 sm:px-5 ${className}`}
+      className={`rounded px-3 py-3 sm:px-5 ${
+        highlighted ? "border-[3px] border-white" : "border"
+      } ${className}`}
       style={{
         backgroundColor: colors.navyMid,
-        borderColor: highlighted ? colors.accent : colors.slate,
-        boxShadow: highlighted ? `0 0 0 1px ${colors.accent}40` : undefined,
+        borderColor: highlighted ? undefined : colors.slate,
       }}
     >
       {children}

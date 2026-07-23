@@ -1,7 +1,6 @@
 import AboutHero from "@/components/sections/AboutHero"
 import AboutTeam from "@/components/sections/AboutTeam"
 import OriginStory from "@/components/sections/OriginStory"
-import Philosophy from "@/components/sections/Philosophy"
 import { createPageMetadata } from "@/lib/metadata"
 
 export const metadata = createPageMetadata({
@@ -16,7 +15,6 @@ export default function AboutPage() {
     <main>
       <AboutHero />
       <OriginStory />
-      <Philosophy />
       <AboutTeam />
     </main>
   )
