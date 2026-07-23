@@ -67,11 +67,6 @@ function randomUpperLetter() {
   return String.fromCharCode(65 + Math.floor(Math.random() * 26))
 }
 
-function isElementInViewport(el: HTMLElement) {
-  const rect = el.getBoundingClientRect()
-  return rect.top < window.innerHeight && rect.bottom > 0
-}
-
 function CpgScramble({ className }: { className: string }) {
   const reducedMotion = usePrefersReducedMotion()
   const ref = useRef<HTMLParagraphElement>(null)
@@ -119,13 +114,6 @@ function CpgScramble({ className }: { className: string }) {
       }, CPG_TICK_MS)
     }
 
-    if (isElementInViewport(el)) {
-      runAnimation()
-      return () => {
-        if (intervalId !== null) clearInterval(intervalId)
-      }
-    }
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -133,7 +121,7 @@ function CpgScramble({ className }: { className: string }) {
           observer.disconnect()
         }
       },
-      { threshold: 0.2, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0.3, rootMargin: "-100px 0px" },
     )
 
     observer.observe(el)

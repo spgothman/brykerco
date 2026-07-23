@@ -22,11 +22,6 @@ function easeOut(progress: number): number {
   return 1 - Math.pow(1 - progress, 3)
 }
 
-function isElementInViewport(el: HTMLElement) {
-  const rect = el.getBoundingClientRect()
-  return rect.top < window.innerHeight && rect.bottom > 0
-}
-
 export default function CountUp({
   value,
   from = 0,
@@ -73,11 +68,6 @@ export default function CountUp({
       requestAnimationFrame(tick)
     }
 
-    if (isElementInViewport(el)) {
-      runAnimation()
-      return
-    }
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -85,7 +75,7 @@ export default function CountUp({
           observer.disconnect()
         }
       },
-      { threshold: 0.2, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0.3, rootMargin: "-100px 0px" },
     )
 
     observer.observe(el)

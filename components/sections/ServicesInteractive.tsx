@@ -89,24 +89,20 @@ const GAP_DEG = 5
 const SEGMENT_DEG = (360 - GAP_DEG * 3) / 3
 const ACCENT_DOT = "#A8BDCF"
 
-/** Two-round entrance pulse: F → O → T → F → O → T, 500ms apart. */
+/** Three-round entrance pulse: F → O → T × 3, 500ms apart. */
 const ENTRANCE_PULSE_DURATION_S = 0.4
 const ENTRANCE_PULSE_GAP_S = 0.5
 const ENTRANCE_PULSE_TOTAL_S =
-  ENTRANCE_PULSE_GAP_S * 5 + ENTRANCE_PULSE_DURATION_S // 2.9s
+  ENTRANCE_PULSE_GAP_S * 8 + ENTRANCE_PULSE_DURATION_S // 4.4s
 
-const ENTRANCE_PULSE_STARTS_S: Record<SegmentId, [number, number]> = {
-  finance: [0, 1.5],
-  operations: [0.5, 2.0],
-  technology: [1.0, 2.5],
+const ENTRANCE_PULSE_STARTS_S: Record<SegmentId, [number, number, number]> = {
+  finance: [0, 1.5, 3.0],
+  operations: [0.5, 2.0, 3.5],
+  technology: [1.0, 2.5, 4.0],
 }
 
 function getEntrancePulseAnimation(id: SegmentId) {
-  const [first, second] = ENTRANCE_PULSE_STARTS_S[id]
-  const mid1 = first + ENTRANCE_PULSE_DURATION_S / 2
-  const end1 = first + ENTRANCE_PULSE_DURATION_S
-  const mid2 = second + ENTRANCE_PULSE_DURATION_S / 2
-  const end2 = second + ENTRANCE_PULSE_DURATION_S
+  const starts = ENTRANCE_PULSE_STARTS_S[id]
   const total = ENTRANCE_PULSE_TOTAL_S
 
   const scale: number[] = []
@@ -123,12 +119,11 @@ function getEntrancePulseAnimation(id: SegmentId) {
   }
 
   push(0, 1)
-  push(first, 1)
-  push(mid1, 1.05)
-  push(end1, 1)
-  push(second, 1)
-  push(mid2, 1.05)
-  push(end2, 1)
+  for (const start of starts) {
+    push(start, 1)
+    push(start + ENTRANCE_PULSE_DURATION_S / 2, 1.05)
+    push(start + ENTRANCE_PULSE_DURATION_S, 1)
+  }
   push(total, 1)
 
   return { scale, times, duration: total }
@@ -191,7 +186,7 @@ export default function ServicesInteractive() {
           observer.disconnect()
         }
       },
-      { threshold: 0.35, rootMargin: "0px 0px -10% 0px" },
+      { threshold: 0.3, rootMargin: "-100px 0px" },
     )
 
     observer.observe(el)
