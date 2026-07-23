@@ -11,7 +11,7 @@ export default function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="relative isolate h-[80vh] overflow-visible bg-navy md:h-auto md:min-h-screen">
+    <section className="relative isolate h-[80vh] overflow-visible bg-navy md:h-[90vh]">
       {!prefersReducedMotion && (
         <div
           className="animate-hero-gradient-drift absolute inset-0 z-0"
@@ -51,7 +51,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex h-[80vh] flex-col justify-between overflow-visible px-4 pt-28 pb-8 md:h-auto md:min-h-screen md:flex-row md:items-start md:justify-start md:px-20 md:pb-0 md:pt-[14vh]">
+      <div className="relative z-10 flex h-[80vh] flex-col justify-between overflow-visible px-4 pt-28 pb-8 md:h-[90vh] md:flex-row md:items-start md:justify-start md:px-20 md:pb-0 md:pt-[14vh]">
         <div className="max-w-[800px]">
           <p
             className="max-w-full font-sans text-[11px] font-medium tracking-[0.08em] sm:tracking-[0.12em]"

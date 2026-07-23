@@ -120,7 +120,7 @@ export default function ServicePillars({ show }: ServicePillarsProps = {}) {
                 }
               >
                 <motion.p
-                  className={`font-sans text-[11px] font-medium uppercase tracking-[0.12em] ${isDark ? "text-blueGray" : "text-slate"}`}
+                  className={`font-sans text-sm font-medium uppercase tracking-[0.16em] ${isDark ? "text-blueGray" : "text-slate"}`}
                   {...getServiceEyebrowProps(reducedMotion)}
                 >
                   {pillar.eyebrow}

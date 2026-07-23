@@ -55,7 +55,7 @@ const clientLogos: {
   },
   {
     src: "/images/tombstones/seager.png",
-    href: "https://www.seager.com",
+    href: "https://www.seagerco.com",
     leftPill: "Operational Role",
   },
   {
@@ -143,7 +143,6 @@ export default function ClientsTombstones() {
               "/images/tombstones/",
               "/images/tombstones/hover/",
             )
-            const isWilliamMurray = src.includes("william-murray")
             const isOnnit = src.includes("onnit")
             const isTapped = tappedIndex === index
             const fadeProps = getFadeInProps(reducedMotion, index * 0.05)
@@ -226,11 +225,7 @@ export default function ClientsTombstones() {
                 <img
                   src={hoverSrc}
                   alt=""
-                  className={`pointer-events-none absolute inset-0 z-0 h-full w-full opacity-0 transition-opacity duration-500 ease-[ease] group-hover:opacity-100 ${
-                    isWilliamMurray
-                      ? "object-contain object-center"
-                      : "object-cover"
-                  }`}
+                  className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 ease-[ease] group-hover:opacity-100"
                   aria-hidden
                 />
                 {(leftPill || rightPill) && (
