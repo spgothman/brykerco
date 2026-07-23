@@ -1,7 +1,7 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { getFadeInProps, getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 
@@ -89,6 +89,51 @@ const GAP_DEG = 5
 const SEGMENT_DEG = (360 - GAP_DEG * 3) / 3
 const ACCENT_DOT = "#A8BDCF"
 
+/** Two-round entrance pulse: F → O → T → F → O → T, 500ms apart. */
+const ENTRANCE_PULSE_DURATION_S = 0.4
+const ENTRANCE_PULSE_GAP_S = 0.5
+const ENTRANCE_PULSE_TOTAL_S =
+  ENTRANCE_PULSE_GAP_S * 5 + ENTRANCE_PULSE_DURATION_S // 2.9s
+
+const ENTRANCE_PULSE_STARTS_S: Record<SegmentId, [number, number]> = {
+  finance: [0, 1.5],
+  operations: [0.5, 2.0],
+  technology: [1.0, 2.5],
+}
+
+function getEntrancePulseAnimation(id: SegmentId) {
+  const [first, second] = ENTRANCE_PULSE_STARTS_S[id]
+  const mid1 = first + ENTRANCE_PULSE_DURATION_S / 2
+  const end1 = first + ENTRANCE_PULSE_DURATION_S
+  const mid2 = second + ENTRANCE_PULSE_DURATION_S / 2
+  const end2 = second + ENTRANCE_PULSE_DURATION_S
+  const total = ENTRANCE_PULSE_TOTAL_S
+
+  const scale: number[] = []
+  const times: number[] = []
+
+  const push = (t: number, s: number) => {
+    const normalized = Math.min(t / total, 1)
+    if (times.length > 0 && Math.abs(times[times.length - 1] - normalized) < 1e-6) {
+      scale[scale.length - 1] = s
+      return
+    }
+    times.push(normalized)
+    scale.push(s)
+  }
+
+  push(0, 1)
+  push(first, 1)
+  push(mid1, 1.05)
+  push(end1, 1)
+  push(second, 1)
+  push(mid2, 1.05)
+  push(end2, 1)
+  push(total, 1)
+
+  return { scale, times, duration: total }
+}
+
 function polarToCartesian(
   cx: number,
   cy: number,
@@ -129,6 +174,37 @@ export default function ServicesInteractive() {
   const reducedMotion = usePrefersReducedMotion()
   const [activeId, setActiveId] = useState<SegmentId | null>(null)
   const leaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const hasPulsedRef = useRef(false)
+  const [entrancePulse, setEntrancePulse] = useState(false)
+
+  useEffect(() => {
+    if (reducedMotion || hasPulsedRef.current) return
+    const el = sectionRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasPulsedRef.current) {
+          hasPulsedRef.current = true
+          setEntrancePulse(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.35, rootMargin: "0px 0px -10% 0px" },
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [reducedMotion])
+
+  useEffect(() => {
+    if (!entrancePulse) return
+    const timeoutId = window.setTimeout(() => {
+      setEntrancePulse(false)
+    }, ENTRANCE_PULSE_TOTAL_S * 1000 + 50)
+    return () => window.clearTimeout(timeoutId)
+  }, [entrancePulse])
 
   const clearLeaveTimeout = () => {
     if (leaveTimeoutRef.current !== null) {
@@ -157,6 +233,7 @@ export default function ServicesInteractive() {
 
   return (
     <section
+      ref={sectionRef}
       className="py-16 md:py-[120px]"
       style={{ backgroundColor: "#F2F5F8" }}
     >
@@ -189,6 +266,9 @@ export default function ServicesInteractive() {
                 const textRotation = isBottomHalf ? midAngle + 180 : midAngle
                 const isActive = activeId === segment.id
                 const isDimmed = activeId !== null && !isActive
+                const entranceAnim = entrancePulse
+                  ? getEntrancePulseAnimation(segment.id)
+                  : null
 
                 return (
                   <g
@@ -206,18 +286,35 @@ export default function ServicesInteractive() {
                     role="button"
                     aria-label={segment.label}
                   >
-                    <path
+                    <motion.path
                       d={donutSegmentPath(start, end)}
                       fill={isActive ? segment.hoverColor : segment.color}
                       stroke="#FFFFFF"
                       strokeWidth={2}
                       style={{
                         transformOrigin: `${CX}px ${CY}px`,
-                        transform: isActive ? "scale(1.03)" : "scale(1)",
-                        transition:
-                          "transform 220ms ease, filter 220ms ease",
                         filter: isActive ? "brightness(1.12)" : "none",
+                        transition: "filter 220ms ease",
                       }}
+                      initial={false}
+                      animate={
+                        isActive
+                          ? { scale: 1.03 }
+                          : entranceAnim
+                            ? { scale: entranceAnim.scale }
+                            : { scale: 1 }
+                      }
+                      transition={
+                        isActive
+                          ? { duration: 0.22, ease: "easeOut" }
+                          : entranceAnim
+                            ? {
+                                duration: entranceAnim.duration,
+                                times: entranceAnim.times,
+                                ease: "easeInOut",
+                              }
+                            : { duration: 0.22, ease: "easeOut" }
+                      }
                     />
                     {segment.id === "technology" ? (
                       <text

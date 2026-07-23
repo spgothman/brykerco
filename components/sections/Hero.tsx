@@ -11,7 +11,7 @@ export default function Hero() {
   const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
-    <section className="relative isolate h-[80vh] overflow-visible bg-navy md:h-[90vh]">
+    <section className="relative isolate flex h-[80vh] flex-col overflow-hidden bg-navy pb-12 md:h-[90vh] md:pb-16">
       {!prefersReducedMotion && (
         <div
           className="animate-hero-gradient-drift absolute inset-0 z-0"
@@ -51,7 +51,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex h-[80vh] flex-col justify-between overflow-visible px-4 pt-28 pb-8 md:h-[90vh] md:flex-row md:items-start md:justify-start md:px-20 md:pb-0 md:pt-[14vh]">
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col px-4 pt-28 md:px-20 md:pt-[14vh]">
         <div className="max-w-[800px]">
           <p
             className="max-w-full font-sans text-[11px] font-medium tracking-[0.08em] sm:tracking-[0.12em]"
@@ -66,28 +66,28 @@ export default function Hero() {
           <h1 className="mt-8 font-serif text-3xl font-bold leading-[1.1] text-white sm:text-[44px] md:mt-6 md:text-[68px]">
             The operating partner for high-growth consumer brands.
           </h1>
+        </div>
 
-          <div className="mt-[11.5rem] flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 md:mt-[42vh]">
-            <Link
-              href="/results"
-              className="inline-flex items-center justify-center rounded-sm px-7 py-3.5 font-sans font-semibold"
-              style={{
-                backgroundColor: "#FFFFFF",
-                color: "#1E2D3D",
-                border: "none",
-                fontSize: "0.875rem",
-                lineHeight: "1.25rem",
-              }}
-            >
-              See Our Results
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center justify-center rounded-sm border border-white bg-transparent px-7 py-3.5 font-sans text-sm font-semibold text-white transition-colors duration-150 hover:bg-white/10"
-            >
-              Learn About Bryker
-            </Link>
-          </div>
+        <div className="mt-auto flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+          <Link
+            href="/results"
+            className="inline-flex items-center justify-center rounded-sm px-7 py-3.5 font-sans font-semibold"
+            style={{
+              backgroundColor: "#FFFFFF",
+              color: "#1E2D3D",
+              border: "none",
+              fontSize: "0.875rem",
+              lineHeight: "1.25rem",
+            }}
+          >
+            See Our Results
+          </Link>
+          <Link
+            href="/about"
+            className="inline-flex items-center justify-center rounded-sm border border-white bg-transparent px-7 py-3.5 font-sans text-sm font-semibold text-white transition-colors duration-150 hover:bg-white/10"
+          >
+            Learn About Bryker
+          </Link>
         </div>
       </div>
     </section>
