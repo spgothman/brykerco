@@ -94,7 +94,7 @@ const clientLogos: {
 ]
 
 const pillClassName =
-  "pointer-events-none w-fit rounded-full bg-[#1E2D3D] px-2.5 py-1 font-sans text-xs text-white opacity-100 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100"
+  "pointer-events-none w-fit rounded-full bg-[#1E2D3D] px-2 py-0.5 font-sans text-xs text-white opacity-100 transition-opacity duration-300 md:px-2.5 md:py-1 md:opacity-0 md:group-hover:opacity-100"
 
 export default function ClientsTombstones() {
   const reducedMotion = usePrefersReducedMotion()
@@ -121,7 +121,7 @@ export default function ClientsTombstones() {
             return (
               <motion.div
                 key={src}
-                className="group relative flex items-center justify-center overflow-hidden rounded border bg-white p-5 transition-shadow duration-200 hover:shadow-md sm:p-10"
+                className="group relative flex items-center justify-center overflow-hidden rounded border bg-white px-5 pt-5 pb-16 transition-shadow duration-200 hover:shadow-md sm:px-10 sm:pt-10 sm:pb-20 md:p-10"
                 style={{ borderColor: "#E2E8F0" }}
                 {...getFadeInProps(reducedMotion, index * 0.05)}
               >
