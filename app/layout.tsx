@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
+import { GoogleAnalytics } from "@next/third-parties/google"
 import { Analytics } from "@vercel/analytics/react"
 import Providers from "@/components/Providers"
 import { SITE_NAME, SITE_URL } from "@/lib/metadata"
@@ -39,6 +40,7 @@ export default function RootLayout({
       <body>
         <Providers>{children}</Providers>
         <Analytics />
+        <GoogleAnalytics gaId="G-EN6B7SKWP9" />
       </body>
     </html>
   )
