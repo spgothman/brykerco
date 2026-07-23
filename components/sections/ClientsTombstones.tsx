@@ -94,9 +94,8 @@ const clientLogos: {
   },
 ]
 
-function isDesktopViewport() {
-  return window.matchMedia("(min-width: 768px)").matches
-}
+const pillBaseClassName =
+  "pointer-events-none w-fit rounded-full bg-[#1E2D3D] px-2 py-0.5 font-sans text-xs text-white transition-opacity duration-300 md:px-2.5 md:py-1"
 
 export default function ClientsTombstones() {
   const reducedMotion = usePrefersReducedMotion()
@@ -105,15 +104,25 @@ export default function ClientsTombstones() {
   useEffect(() => {
     if (tappedIndex === null) return
 
-    const onPointerDown = (event: PointerEvent) => {
-      const target = event.target as Element | null
-      if (!target?.closest("[data-tombstone]")) {
-        setTappedIndex(null)
-      }
-    }
+    let removeListener: (() => void) | undefined
 
-    document.addEventListener("pointerdown", onPointerDown)
-    return () => document.removeEventListener("pointerdown", onPointerDown)
+    // Defer so the same tap that opened the pills doesn't immediately clear them
+    const timeoutId = window.setTimeout(() => {
+      const onPointerDown = (event: PointerEvent) => {
+        const target = event.target as Element | null
+        if (!target?.closest("[data-tombstone]")) {
+          setTappedIndex(null)
+        }
+      }
+      document.addEventListener("pointerdown", onPointerDown)
+      removeListener = () =>
+        document.removeEventListener("pointerdown", onPointerDown)
+    }, 0)
+
+    return () => {
+      window.clearTimeout(timeoutId)
+      removeListener?.()
+    }
   }, [tappedIndex])
 
   return (
@@ -135,31 +144,46 @@ export default function ClientsTombstones() {
             const isWilliamMurray = src.includes("william-murray")
             const isOnnit = src.includes("onnit")
             const isTapped = tappedIndex === index
-            const pillClassName = `pointer-events-none w-fit rounded-full bg-[#1E2D3D] px-2 py-0.5 font-sans text-xs text-white transition-opacity duration-300 md:px-2.5 md:py-1 md:opacity-0 md:group-hover:opacity-100 ${
-              isTapped ? "opacity-100" : "opacity-0"
-            }`
+            const fadeProps = getFadeInProps(reducedMotion, index * 0.05)
+
+            const handleTileActivate = () => {
+              // Desktop uses CSS hover only; still allow state updates but
+              // md:opacity utilities ignore tap state above the md breakpoint.
+              setTappedIndex((current) => (current === index ? null : index))
+            }
 
             return (
               <motion.div
                 key={src}
                 data-tombstone
+                {...fadeProps}
+                role="button"
+                tabIndex={0}
                 className="group relative flex cursor-pointer items-center justify-center overflow-hidden rounded border bg-white p-5 transition-shadow duration-200 hover:shadow-md sm:p-10"
                 style={{ borderColor: "#E2E8F0" }}
-                onClick={() => {
-                  if (isDesktopViewport()) return
-                  setTappedIndex((current) => (current === index ? null : index))
+                onClick={handleTileActivate}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault()
+                    handleTileActivate()
+                  }
                 }}
-                {...getFadeInProps(reducedMotion, index * 0.05)}
               >
                 {href ? (
                   <a
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative z-10 block w-full"
+                    className="relative z-10 block w-full md:pointer-events-auto pointer-events-none"
                     onClick={(event) => {
-                      if (!isDesktopViewport()) {
+                      // Mobile: tile onClick handles tap; don't navigate away
+                      if (
+                        typeof window !== "undefined" &&
+                        !window.matchMedia("(min-width: 768px)").matches
+                      ) {
                         event.preventDefault()
+                      } else {
+                        event.stopPropagation()
                       }
                     }}
                   >
@@ -181,7 +205,7 @@ export default function ClientsTombstones() {
                 <img
                   src={hoverSrc}
                   alt=""
-                  className={`absolute inset-0 z-0 h-full w-full opacity-0 transition-opacity duration-500 ease-[ease] group-hover:opacity-100 ${
+                  className={`pointer-events-none absolute inset-0 z-0 h-full w-full opacity-0 transition-opacity duration-500 ease-[ease] group-hover:opacity-100 ${
                     isWilliamMurray
                       ? "object-contain object-center"
                       : "object-cover"
@@ -189,12 +213,22 @@ export default function ClientsTombstones() {
                   aria-hidden
                 />
                 {(leftPill || rightPill) && (
-                  <div className="absolute bottom-2 left-2 z-20 flex flex-col gap-1.5 md:right-2 md:flex-row md:items-end md:justify-between">
+                  <div className="pointer-events-none absolute bottom-2 left-2 z-20 flex flex-col gap-1.5 md:right-2 md:flex-row md:items-end md:justify-between">
                     {leftPill && (
-                      <span className={pillClassName}>{leftPill}</span>
+                      <span
+                        className={`${pillBaseClassName} ${
+                          isTapped ? "opacity-100" : "opacity-0"
+                        } md:opacity-0 md:group-hover:opacity-100`}
+                      >
+                        {leftPill}
+                      </span>
                     )}
                     {rightPill && (
-                      <span className={`${pillClassName} md:ml-auto`}>
+                      <span
+                        className={`${pillBaseClassName} md:ml-auto ${
+                          isTapped ? "opacity-100" : "opacity-0"
+                        } md:opacity-0 md:group-hover:opacity-100`}
+                      >
                         {rightPill}
                       </span>
                     )}
