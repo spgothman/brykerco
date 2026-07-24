@@ -28,6 +28,10 @@ export const metadata: Metadata = {
   },
   description:
     "Premium operating partner for high-growth consumer brands.",
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/favicon.ico",
+  },
 }
 
 export default function RootLayout({
