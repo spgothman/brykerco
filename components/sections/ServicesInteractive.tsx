@@ -268,16 +268,18 @@ export default function ServicesInteractive() {
                 return (
                   <g
                     key={segment.id}
+                    className="outline-none focus:outline-none"
                     style={{
                       opacity: isDimmed ? 0.72 : 1,
                       cursor: "pointer",
                       transition: "opacity 220ms ease",
+                      outline: "none",
                     }}
                     onMouseEnter={() => activateSegment(segment.id)}
                     onMouseLeave={scheduleDeactivate}
                     onFocus={() => activateSegment(segment.id)}
                     onBlur={scheduleDeactivate}
-                    tabIndex={0}
+                    tabIndex={-1}
                     role="button"
                     aria-label={segment.label}
                   >
