@@ -9,19 +9,19 @@ const teamMembers = [
   {
     name: "Josh Holley",
     title: "Founder & Managing Partner",
-    imageSrc: "/images/team/Holley_Grey Background.png",
+    imageSrc: "/images/team/Holley.jpg",
     linkedInUrl: "https://www.linkedin.com/in/josh-holley-01b56227/",
   },
   {
     name: "Shane Gothman",
     title: "Partner",
-    imageSrc: "/images/team/Gothman_Grey Background.png",
+    imageSrc: "/images/team/Gothman.jpg",
     linkedInUrl: "https://www.linkedin.com/in/shane-gothman-cpa-b288ab59/",
   },
   {
     name: "Travis Walker",
     title: "Vice President",
-    imageSrc: "/images/team/Walker_Grey Background.png",
+    imageSrc: "/images/team/Walker.jpg",
     linkedInUrl: "https://www.linkedin.com/in/travis-walker-cpa-594223113/",
   },
 ] as const
