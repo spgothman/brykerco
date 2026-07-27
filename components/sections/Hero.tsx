@@ -53,24 +53,14 @@ export default function Hero() {
 
       <div className="relative z-10 flex min-h-0 flex-1 flex-col px-4 pt-28 md:px-20 md:pt-[14vh]">
         <div className="max-w-[800px]">
-          <p
-            className="max-w-full font-sans text-[11px] font-medium tracking-[0.08em] sm:tracking-[0.12em]"
-            style={{ color: colors.accent }}
-          >
-            ESTABLISHED 2016{" "}
-            <span aria-hidden>&middot;</span> OPERATING PARTNER{" "}
-            <span aria-hidden>&middot;</span>
-            <br className="block md:hidden" /> MIDDLE MARKET CPG
-          </p>
-
-          <h1 className="mt-8 font-serif text-3xl font-bold leading-[1.1] text-white sm:text-[44px] md:mt-6 md:text-[68px]">
+          <h1 className="font-serif text-3xl font-bold leading-[1.1] text-white sm:text-[44px] md:text-[68px]">
             The operating partner for high-growth consumer brands.
           </h1>
         </div>
 
         <div className="mt-auto flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-          <Link
-            href="/results"
+          <a
+            href="#how-we-work"
             className="inline-flex items-center justify-center rounded-sm px-7 py-3.5 font-sans font-semibold"
             style={{
               backgroundColor: "#FFFFFF",
@@ -80,13 +70,13 @@ export default function Hero() {
               lineHeight: "1.25rem",
             }}
           >
-            See Our Results
-          </Link>
+            How We Work
+          </a>
           <Link
-            href="/about"
+            href="/results"
             className="inline-flex items-center justify-center rounded-sm border border-white bg-transparent px-7 py-3.5 font-sans text-sm font-semibold text-white transition-colors duration-150 hover:bg-white/10"
           >
-            Learn About Bryker
+            See Our Results
           </Link>
         </div>
       </div>

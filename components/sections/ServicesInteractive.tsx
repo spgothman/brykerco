@@ -228,8 +228,9 @@ export default function ServicesInteractive() {
 
   return (
     <section
+      id="how-we-work"
       ref={sectionRef}
-      className="py-16 md:py-[120px]"
+      className="scroll-mt-[72px] py-16 md:py-[120px]"
       style={{ backgroundColor: "#F2F5F8" }}
     >
       <div className="mx-auto max-w-7xl px-4 md:px-20">
