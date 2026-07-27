@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Fragment, useEffect, useRef, useState, useSyncExternalStore } from "react"
+import { Fragment, useSyncExternalStore } from "react"
 import CountUp from "@/components/ui/CountUp"
 import { getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
@@ -9,16 +9,11 @@ import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 const VALUE_CLASS =
   "text-center font-serif text-[48px] font-bold leading-none text-white md:text-[72px]"
 
-const SCRAMBLE_VALUE_CLASS =
+const SECTOR_VALUE_CLASS =
   "text-center font-serif text-[32px] font-bold leading-none text-white md:text-[48px]"
 
 const PRACTICE_VALUE_CLASS =
   "text-center text-[24px] font-bold leading-tight text-white md:text-[32px]"
-
-const SCRAMBLE_TARGET = "Consumer"
-const SCRAMBLE_LOCK_MS = [500, 650, 800, 950, 1100, 1250, 1400, 1550] as const
-const SCRAMBLE_TICK_MS = 50
-const SCRAMBLE_DURATION_MS = 1600
 
 const metrics = [
   {
@@ -38,8 +33,8 @@ const metrics = [
     label: "PRACTICE AREAS",
   },
   {
-    kind: "scramble" as const,
-    display: SCRAMBLE_TARGET,
+    kind: "static" as const,
+    display: "Consumer",
     label: "SECTOR FOCUS",
   },
 ]
@@ -63,87 +58,6 @@ function useIsMdUp() {
     subscribeMdUp,
     getMdUpSnapshot,
     getMdUpServerSnapshot,
-  )
-}
-
-function randomLetterMatchingCase(targetChar: string) {
-  if (targetChar >= "A" && targetChar <= "Z") {
-    return String.fromCharCode(65 + Math.floor(Math.random() * 26))
-  }
-  if (targetChar >= "a" && targetChar <= "z") {
-    return String.fromCharCode(97 + Math.floor(Math.random() * 26))
-  }
-  return targetChar
-}
-
-function SectorScramble({ className }: { className: string }) {
-  const reducedMotion = usePrefersReducedMotion()
-  const ref = useRef<HTMLParagraphElement>(null)
-  const hasAnimatedRef = useRef(false)
-  const [display, setDisplay] = useState(SCRAMBLE_TARGET)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el || hasAnimatedRef.current) return
-
-    let intervalId: ReturnType<typeof setInterval> | null = null
-
-    const runAnimation = () => {
-      if (hasAnimatedRef.current) return
-      hasAnimatedRef.current = true
-
-      if (reducedMotion) {
-        setDisplay(SCRAMBLE_TARGET)
-        return
-      }
-
-      const start = performance.now()
-      const locked = SCRAMBLE_TARGET.split("").map(() => false)
-
-      intervalId = setInterval(() => {
-        const elapsed = performance.now() - start
-        const next = SCRAMBLE_TARGET.split("")
-
-        for (let i = 0; i < next.length; i++) {
-          if (!locked[i] && elapsed >= SCRAMBLE_LOCK_MS[i]) {
-            locked[i] = true
-          }
-          if (!locked[i]) {
-            next[i] = randomLetterMatchingCase(SCRAMBLE_TARGET[i])
-          }
-        }
-
-        setDisplay(next.join(""))
-
-        if (locked.every(Boolean) || elapsed >= SCRAMBLE_DURATION_MS) {
-          setDisplay(SCRAMBLE_TARGET)
-          if (intervalId !== null) clearInterval(intervalId)
-          intervalId = null
-        }
-      }, SCRAMBLE_TICK_MS)
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          runAnimation()
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.3, rootMargin: "-100px 0px" },
-    )
-
-    observer.observe(el)
-    return () => {
-      observer.disconnect()
-      if (intervalId !== null) clearInterval(intervalId)
-    }
-  }, [reducedMotion])
-
-  return (
-    <p ref={ref} className={className} aria-label={SCRAMBLE_TARGET}>
-      {display}
-    </p>
   )
 }
 
@@ -187,11 +101,7 @@ function MetricValue({
     return <PracticeAreasValue />
   }
 
-  if (metric.kind === "scramble") {
-    return <SectorScramble className={SCRAMBLE_VALUE_CLASS} />
-  }
-
-  return null
+  return <p className={SECTOR_VALUE_CLASS}>{metric.display}</p>
 }
 
 export default function MetricsStrip() {

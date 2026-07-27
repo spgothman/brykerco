@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useMemo, useRef, useState } from "react"
-import { getFadeInProps, getFadeUpProps } from "@/lib/scrollAnimations"
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 
 type SegmentId = "finance" | "operations" | "technology"
@@ -234,11 +233,8 @@ export default function ServicesInteractive() {
       style={{ backgroundColor: "#F2F5F8" }}
     >
       <div className="mx-auto max-w-7xl px-4 md:px-20">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-stretch lg:gap-16">
-          <motion.div
-            className="mx-auto flex h-full w-full max-w-[560px] items-center justify-center lg:mx-0 lg:max-w-none"
-            {...getFadeUpProps(reducedMotion)}
-          >
+        <div className="grid grid-cols-1 gap-4 md:gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
+          <div className="mx-auto flex h-full w-full max-w-[560px] items-center justify-center lg:mx-0 lg:max-w-none">
             <svg
               viewBox="0 0 500 500"
               width={500}
@@ -390,12 +386,9 @@ export default function ServicesInteractive() {
                 PARTNER
               </text>
             </svg>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="flex min-h-0 w-full min-w-0 flex-col lg:pt-8"
-            {...getFadeInProps(reducedMotion, 0.1)}
-          >
+          <div className="flex min-h-0 w-full min-w-0 flex-col lg:pt-8">
             {!activeSegment && (
               <h2
                 className="font-serif text-3xl font-semibold leading-tight md:text-[48px]"
@@ -406,7 +399,7 @@ export default function ServicesInteractive() {
             )}
 
             <div
-              className={`flex min-h-0 flex-1 flex-col ${activeSegment ? "" : "mt-6"}`}
+              className={`flex min-h-0 flex-1 flex-col ${activeSegment ? "" : "mt-4 md:mt-6"}`}
             >
               <AnimatePresence mode="wait">
                 {activeSegment ? (
@@ -465,14 +458,7 @@ export default function ServicesInteractive() {
                       )}
                   </motion.div>
                 ) : (
-                  <motion.div
-                    key="default"
-                    className="flex flex-col gap-5"
-                    initial={reducedMotion ? false : { opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={reducedMotion ? undefined : { opacity: 0, y: -6 }}
-                    transition={{ duration: 0.28, ease: "easeOut" }}
-                  >
+                  <div className="flex flex-col gap-5">
                     {principles.map((principle) => (
                       <div
                         key={principle.title}
@@ -496,11 +482,11 @@ export default function ServicesInteractive() {
                         </p>
                       </div>
                     ))}
-                  </motion.div>
+                  </div>
                 )}
               </AnimatePresence>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

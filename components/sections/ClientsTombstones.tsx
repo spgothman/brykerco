@@ -12,11 +12,6 @@ const clientLogos: {
   rightPill?: string
 }[] = [
   {
-    src: "/images/tombstones/masa.png",
-    href: "https://www.masachips.com",
-    rightPill: "Active Investment",
-  },
-  {
     src: "/images/tombstones/bpn.png",
     href: "https://www.bareperformancenutrition.com",
     leftPill: "Operational Role",
@@ -28,14 +23,24 @@ const clientLogos: {
     leftPill: "Operational Role",
   },
   {
-    src: "/images/tombstones/onnit.png",
-    href: "https://www.onnit.com",
-    rightPill: "Exited Investment",
+    src: "/images/tombstones/masa.png",
+    href: "https://www.masachips.com",
+    rightPill: "Active Investment",
+  },
+  {
+    src: "/images/tombstones/flighty.png",
+    href: "https://www.flighty.app",
+    leftPill: "Operational Role",
   },
   {
     src: "/images/tombstones/serene-herbs.png",
     href: "https://www.sereneherbs.com",
     leftPill: "Operational Role",
+  },
+  {
+    src: "/images/tombstones/onnit.png",
+    href: "https://www.onnit.com",
+    rightPill: "Exited Investment",
   },
   {
     src: "/images/tombstones/william-murray.png",
@@ -54,11 +59,6 @@ const clientLogos: {
     leftPill: "Operational Role",
   },
   {
-    src: "/images/tombstones/seager.png",
-    href: "https://www.seagerco.com",
-    leftPill: "Operational Role",
-  },
-  {
     src: "/images/tombstones/ag-gear.png",
     href: "https://www.aggearstore.com",
     leftPill: "Operational Role",
@@ -74,22 +74,8 @@ const clientLogos: {
     leftPill: "Operational Role",
   },
   {
-    src: "/images/tombstones/ikigai-cases.png",
-    href: "https://www.ikigaicases.com",
-    leftPill: "Operational Role",
-  },
-  {
-    src: "/images/tombstones/granarly.png",
-    leftPill: "Operational Role",
-  },
-  {
     src: "/images/tombstones/weather-line.png",
     href: "https://www.foxweather.com/app",
-    leftPill: "Operational Role",
-  },
-  {
-    src: "/images/tombstones/flighty.png",
-    href: "https://www.flighty.app",
     leftPill: "Operational Role",
   },
 ]
@@ -137,13 +123,14 @@ export default function ClientsTombstones() {
           Experience
         </motion.h2>
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-6 md:mt-16 lg:grid-cols-4">
+        <div className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-3 sm:gap-6 md:mt-16 lg:grid-cols-3">
           {clientLogos.map(({ src, href, leftPill, rightPill }, index) => {
             const hoverSrc = src.replace(
               "/images/tombstones/",
               "/images/tombstones/hover/",
             )
             const isOnnit = src.includes("onnit")
+            const isLastCard = index === clientLogos.length - 1
             const isTapped = tappedIndex === index
             const fadeProps = getFadeInProps(reducedMotion, index * 0.05)
 
@@ -154,7 +141,7 @@ export default function ClientsTombstones() {
                 {...fadeProps}
                 role="button"
                 tabIndex={0}
-                className="group relative flex cursor-pointer items-center justify-center overflow-hidden rounded border bg-white p-5 transition-shadow duration-200 hover:shadow-md sm:p-10"
+                className={`group relative flex aspect-[3/2] cursor-pointer items-center justify-center overflow-hidden rounded border bg-white p-5 transition-shadow duration-200 hover:shadow-md sm:p-10${isLastCard ? " lg:col-start-2" : ""}`}
                 style={{ borderColor: "#E2E8F0" }}
                 onTouchStart={() => {
                   openedByTouchRef.current = true
@@ -229,7 +216,7 @@ export default function ClientsTombstones() {
                   aria-hidden
                 />
                 {(leftPill || rightPill) && (
-                  <div className="pointer-events-none absolute bottom-2 left-2 z-20 flex flex-col gap-1.5 md:right-2 md:flex-row md:items-end md:justify-between">
+                  <div className="pointer-events-none absolute inset-x-2 bottom-2 z-20 flex flex-col gap-1.5 md:flex-row md:items-end md:justify-between">
                     {leftPill && (
                       <span
                         className={`${pillBaseClassName} ${
@@ -241,7 +228,7 @@ export default function ClientsTombstones() {
                     )}
                     {rightPill && (
                       <span
-                        className={`${pillBaseClassName} md:ml-auto ${
+                        className={`${pillBaseClassName} ${
                           isTapped ? "opacity-100" : "opacity-0"
                         } md:opacity-0 md:group-hover:opacity-100`}
                       >
