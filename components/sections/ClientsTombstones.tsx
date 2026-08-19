@@ -7,6 +7,7 @@ import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion"
 
 const clientLogos: {
   src: string
+  hoverSrc?: string
   href?: string
   leftPill?: string
   rightPill?: string
@@ -18,8 +19,9 @@ const clientLogos: {
     rightPill: "Exited Investment",
   },
   {
-    src: "/images/tombstones/huk.png",
-    href: "https://www.hukgear.com",
+    src: "/images/tombstones/mars-men.png",
+    hoverSrc: "/images/tombstones/hover/mars-men.PNG",
+    href: "https://www.mengotomars.com",
     leftPill: "Operational Role",
   },
   {
@@ -28,19 +30,24 @@ const clientLogos: {
     rightPill: "Active Investment",
   },
   {
-    src: "/images/tombstones/flighty.png",
-    href: "https://www.flighty.app",
+    src: "/images/tombstones/huk.png",
+    href: "https://www.hukgear.com",
     leftPill: "Operational Role",
   },
   {
-    src: "/images/tombstones/serene-herbs.png",
-    href: "https://www.sereneherbs.com",
+    src: "/images/tombstones/flighty.png",
+    href: "https://www.flighty.app",
     leftPill: "Operational Role",
   },
   {
     src: "/images/tombstones/onnit.png",
     href: "https://www.onnit.com",
     rightPill: "Exited Investment",
+  },
+  {
+    src: "/images/tombstones/serene-herbs.png",
+    href: "https://www.sereneherbs.com",
+    leftPill: "Operational Role",
   },
   {
     src: "/images/tombstones/william-murray.png",
@@ -124,11 +131,10 @@ export default function ClientsTombstones() {
         </motion.h2>
 
         <div className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-3 sm:gap-6 md:mt-16 lg:grid-cols-3">
-          {clientLogos.map(({ src, href, leftPill, rightPill }, index) => {
-            const hoverSrc = src.replace(
-              "/images/tombstones/",
-              "/images/tombstones/hover/",
-            )
+          {clientLogos.map(({ src, hoverSrc, href, leftPill, rightPill }, index) => {
+            const resolvedHoverSrc =
+              hoverSrc ??
+              src.replace("/images/tombstones/", "/images/tombstones/hover/")
             const isOnnit = src.includes("onnit")
             const isLastCard = index === clientLogos.length - 1
             const isTapped = tappedIndex === index
@@ -210,7 +216,7 @@ export default function ClientsTombstones() {
                   />
                 )}
                 <img
-                  src={hoverSrc}
+                  src={resolvedHoverSrc}
                   alt=""
                   className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 ease-[ease] group-hover:opacity-100"
                   aria-hidden
