@@ -136,6 +136,8 @@ export default function ClientsTombstones() {
               hoverSrc ??
               src.replace("/images/tombstones/", "/images/tombstones/hover/")
             const isOnnit = src.includes("onnit")
+            const isMarsMen = src.includes("mars-men")
+            const logoScale = isMarsMen ? 1.7 : isOnnit ? 1.2 : undefined
             const isLastCard = index === clientLogos.length - 1
             const isTapped = tappedIndex === index
             const fadeProps = getFadeInProps(reducedMotion, index * 0.05)
@@ -204,7 +206,9 @@ export default function ClientsTombstones() {
                       src={src}
                       alt=""
                       className="h-[64px] w-full object-contain opacity-100 transition-opacity duration-500 ease-[ease] group-hover:opacity-0 sm:h-[90px]"
-                      style={isOnnit ? { transform: "scale(1.2)" } : undefined}
+                      style={
+                        logoScale ? { transform: `scale(${logoScale})` } : undefined
+                      }
                     />
                   </a>
                 ) : (
@@ -212,7 +216,9 @@ export default function ClientsTombstones() {
                     src={src}
                     alt=""
                     className="relative z-10 h-[64px] w-full object-contain opacity-100 transition-opacity duration-500 ease-[ease] group-hover:opacity-0 sm:h-[90px]"
-                    style={isOnnit ? { transform: "scale(1.2)" } : undefined}
+                    style={
+                      logoScale ? { transform: `scale(${logoScale})` } : undefined
+                    }
                   />
                 )}
                 <img
