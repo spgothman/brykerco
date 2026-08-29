@@ -28,6 +28,21 @@ export const metadata: Metadata = {
   },
   description:
     "Premium operating partner for high-growth consumer brands.",
+  openGraph: {
+    title: "Bryker & Co.",
+    description: "Premium operating partner for consumer brands.",
+    url: "https://brykerco.com",
+    siteName: "Bryker & Co.",
+    images: [
+      {
+        url: "https://brykerco.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Bryker & Co.",
+      },
+    ],
+    type: "website",
+  },
   icons: {
     icon: "/icon.png",
     shortcut: "/favicon.ico",
