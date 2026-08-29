@@ -4,12 +4,28 @@ import IntelligentERP from "@/components/sections/IntelligentERP"
 import { TechnologyLayers } from "@/components/sections/TechnologyDetails"
 import { createPageMetadata } from "@/lib/metadata"
 
-export const metadata = createPageMetadata({
-  title: "Services",
-  description:
-    "Finance, operations, and technology. Embedded operating leadership for high-growth consumer brands.",
-  path: "/services",
-})
+export const metadata = {
+  ...createPageMetadata({
+    title: "Services",
+    description:
+      "Finance, operations, and technology. Embedded operating leadership for high-growth consumer brands.",
+    path: "/services",
+  }),
+  title: "Services | Bryker & Co.",
+  openGraph: {
+    title: "Bryker & Co.",
+    description: "Premium operating partner for consumer brands.",
+    url: "https://brykerco.com/services",
+    images: [
+      {
+        url: "https://brykerco.com/og-image.PNG",
+        width: 1200,
+        height: 630,
+        alt: "Bryker & Co.",
+      },
+    ],
+  },
+}
 
 export default function ServicesPage() {
   return (
