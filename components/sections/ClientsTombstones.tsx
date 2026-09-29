@@ -15,14 +15,14 @@ const clientLogos: {
   {
     src: "/images/tombstones/bpn.png",
     href: "https://www.bareperformancenutrition.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
     rightPill: "Exited Investment",
   },
   {
     src: "/images/tombstones/mars-men.png",
     hoverSrc: "/images/tombstones/hover/mars-men.PNG",
     href: "https://www.mengotomars.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
   {
     src: "/images/tombstones/masa.png",
@@ -32,12 +32,12 @@ const clientLogos: {
   {
     src: "/images/tombstones/huk.png",
     href: "https://www.hukgear.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
   {
     src: "/images/tombstones/flighty.png",
     href: "https://www.flighty.app",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
   {
     src: "/images/tombstones/onnit.png",
@@ -47,43 +47,43 @@ const clientLogos: {
   {
     src: "/images/tombstones/serene-herbs.png",
     href: "https://www.sereneherbs.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
   {
     src: "/images/tombstones/william-murray.png",
     href: "https://www.williammurraygolf.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
   {
     src: "/images/tombstones/big-blanket-co.png",
     href: "https://www.bigblanket.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
     rightPill: "Active Investment",
   },
   {
     src: "/images/tombstones/zero-foxtrot.png",
     href: "https://www.zerofoxtrot.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
   {
     src: "/images/tombstones/ag-gear.png",
     href: "https://www.aggearstore.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
   {
     src: "/images/tombstones/barton.png",
     href: "https://www.bartonwatchbands.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
   {
     src: "/images/tombstones/nomad.png",
     href: "https://www.nomadoutdoor.com",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
   {
     src: "/images/tombstones/weather-line.png",
     href: "https://www.foxweather.com/app",
-    leftPill: "Operational Role",
+    leftPill: "Operating Role",
   },
 ]
 
